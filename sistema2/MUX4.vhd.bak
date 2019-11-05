@@ -1,0 +1,25 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.std_logic_unsigned.all;
+
+
+entity MUX2 is
+port
+(
+	enable : in std_logic_vector(1 downto 0);
+	A, B : in std_logic_vector(3 downto 0);
+	salida : out std_logic_vector(3 downto 0)
+);
+end MUX2;
+
+architecture archMUX2 of MUX2 is
+begin
+	process (enable)
+	begin
+		if (enable = "00") then
+			salida <= A;
+		elsif (enable = "01") then
+			salida <= B;
+		end if;
+	end process;
+end archMUX2;
