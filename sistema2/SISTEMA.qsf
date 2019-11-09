@@ -64,3 +64,4 @@ set_global_assignment -name VHDL_FILE shiftLeft2Abajo.vhd
 set_global_assignment -name VHDL_FILE shiftLeft2.vhd
 set_global_assignment -name VHDL_FILE instructionRegister.vhd
 set_global_assignment -name VHDL_FILE registers.vhd
+set_global_assignment -name VHDL_FILE MUX25Bits.vhd
