@@ -6,7 +6,8 @@ entity alu is
 	port(
 	A, B : in std_logic_vector(7 downto 0);
 	alu_sel : in std_logic_vector(2 downto 0);
-	alu_out : out std_logic_vector(7 downto 0)
+	alu_out : out std_logic_vector(7 downto 0);
+	zero : out std_logic
 	);
 end alu;
 
@@ -21,5 +22,10 @@ begin
 						B when "101",
 						not A when "110",
 						not B when others;
+	if alu_out = '0' then
+		zero <= '1';
+	else
+		zero <= '0';
+	end if;
 
 end Comportamiento;
