@@ -1,0 +1,19 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+entity pc is
+port
+(
+  enable, entrada, clk: in  std_logic;
+  d:   in  std_logic_vector (7 downto 0);
+  q:   out std_logic_vector (7 downto 0)
+);
+end pc;
+
+
+architecture arch of pc is
+begin
+  process ( enable, entrada, clk )
+  begin
+
+  end process;
+end pc;
