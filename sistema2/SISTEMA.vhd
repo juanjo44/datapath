@@ -7,7 +7,9 @@ port
 (
 	clock, clear : in std_logic;
 	entradaMemoria : in std_logic_vector (31 downto 0);
-	salidadDelB,direccion : out std_logic_vector (31 downto 0)
+	salidadDelB, direccion : out std_logic_vector (31 downto 0);
+	salidaMemWrite, salidaMemRead : out std_logic;
+	salidaAluOut : out std_logic_vector(31 downto 0)
 );
 end SISTEMA;
 
@@ -46,7 +48,7 @@ end component;
 component alu
 port(
 	A, B : in std_logic_vector(31 downto 0);
-	alu_sel : in std_logic_vector(2 downto 0);
+	alu_sel : in std_logic_vector(1 downto 0);
 	alu_out : out std_logic_vector(31 downto 0);
 	zero : out std_logic
 );
@@ -146,19 +148,17 @@ end component;
 --Senales de 1
 signal senalBranch, senalPcWrite, senalIorD,senalMemRead, senalMemWrite, senalMemtoReg, senalIRWrite, senalALUSrcA, senalRegWrite,senalRegDst,senalZero,senalCajitaAnds : std_logic;
 --Senales de 2
-signal senalPCSrc, senalALUSrcB : std_logic_vector(1 downto 0);
---Senales de 3
-signal senalALUOp : std_logic_vector(2 downto 0);
+signal senalPCSrc, senalALUSrcB,senalALUOp : std_logic_vector(1 downto 0);
 --Senales de 6
 signal senalIsa31_26 : std_logic_vector(5 downto 0);
 --Senales de 5
 signal senalIsa25_21, senalIsa20_16, entradaWriteRegister : std_logic_vector(4 downto 0);
---Senales de 15
-signal senalIsa15_0 : std_logic_vector(14 downto 0);
---Senales de 25
-signal senalIsa25_0 : std_logic_vector(24 downto 0);
+--Senales de 16
+signal senalIsa15_0 : std_logic_vector(15 downto 0);
+--Senales de 26
+signal senalIsa25_0 : std_logic_vector(25 downto 0);
 --Senales de 32
-signal conectorMux2AAbajoRegister,entradaA, entradaB, salidaA, salidaB,conectorMux2AAlu, senalSalidaPc,salidaSignExtend,salidaShiftLeft2Abajo,conectorMux4AAlu,senalMDR,salidaMux3,salidaShiftLeftArriba,salidaAlu, senalSalidaAluOut, conectorAluAluOut : std_logic_vector(31 downto 0);
+signal conectorMux2AAbajoRegister,entradaA, entradaB, salidaA, salidaB,conectorMux2AAlu, senalSalidaPc,salidaSignExtend,salidaShiftLeft2Abajo,conectorMux4AAlu,senalMDR,salidaMux3,salidaShiftLeftArriba,salidaAlu, senalSalidaAluOut, conectorAluAluOut, salidaTemp : std_logic_vector(31 downto 0);
 
 begin
 
@@ -190,12 +190,14 @@ begin
 	enable => senalIRWrite,
 	entrada => entradaMemoria,
 	clk => clock,
-	salida(31 downto 26) => senalIsa31_26,
-	salida(25 downto 21) => senalIsa25_21,
-	salida(21 downto 16) => senalIsa20_16,
-	salida(15 downto 0) => senalIsa15_0,
-	salida(25 downto 0) => senalIsa25_0
+	salida => salidaTemp
 	);
+	
+	senalIsa31_26 <= salidaTemp(31 downto 26);
+	senalIsa25_21 <= salidaTemp(25 downto 21);
+	senalIsa20_16 <= salidaTemp(20 downto 16);
+	senalIsa15_0 <= salidaTemp(15 downto 0);
+	senalIsa25_0 <= salidaTemp(25 downto 0);
 	
 	--Multiplexor para decidir entre rt o rd
 	mux_instruction_a_registers : MUX25Bits
@@ -252,7 +254,7 @@ begin
 	port map(
 	enable => senalALUsrcB,
 	A => salidaB,
-	B => ("00000000000000000000000000000100"),
+	B => ("00000000000000000000000000000001"),
 	C => salidaSignExtend,
 	D => salidaShiftLeft2Abajo,
 	salida => conectorMux4AAlu
@@ -362,5 +364,9 @@ begin
 	B => senalSalidaAluOut,
 	salida => direccion
 	);
-
+	
+	salidadDelB <= salidaB;
+	salidaMemWrite <= senalMemWrite;
+	salidaMemRead <= senalMemRead;
+	salidaAluOut <= senalSalidaAluOut;
 end arch;

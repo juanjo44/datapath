@@ -3,7 +3,7 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity unidadDeControl is
-generic(ClockFrecuencyHz : integer);
+--generic(ClockFrecuencyHz : integer);
 port(
 	instruction	: in std_logic_vector (5 downto 0);
 	Clk			: in  std_logic;
@@ -47,7 +47,8 @@ begin
             elsif instruction = "000100" then
             state <= BranchState;
             --addi
-            elsif instruction = "001000" then
+            --elsif instruction = "001000" then
+				else
             state <= TipoI;
             end if;
 			elsif state = memAddr then
@@ -69,7 +70,7 @@ begin
             state <= Fetch;
 			elsif state = execute then
             state <= AluWriteback;
-			elsif state = AluWriteback then
+			else-- state = AluWriteback then
             state <= Fetch;
 			--elsif state = "1000" then
             --currentState <="0000";
@@ -167,6 +168,21 @@ begin
 						ALUSrcB <= "00";
 						ALUSrcA <= '0';
 						RegWrite <= '1';
+					when others =>
+						state		<= Fetch;
+						Branch	<= '0';
+						PcWrite	<= '0';
+						IorD		<= '0';
+						MemRead	<= '0';
+						MemWrite <= '0';
+						MemToReg <= '0';
+						IRWrite	<= '0';
+						PCSrc		<= "00";
+						ALUOp		<= "00";
+						ALUSrcB	<= "00";
+						ALUSrcA	<= '0';
+						RegWrite <= '0';
+						regDst	<='0';
 				end case;
 			
 			end if;

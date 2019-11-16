@@ -5,7 +5,7 @@ use ieee.std_logic_unsigned.all;
 entity alu is
 	port(
 	A, B : in std_logic_vector(31 downto 0);
-	alu_sel : in std_logic_vector(2 downto 0);
+	alu_sel : in std_logic_vector(1 downto 0);
 	alu_out : out std_logic_vector(31 downto 0);
 	zero : out std_logic
 	);
@@ -16,22 +16,22 @@ begin
 	process(alu_sel)
 	variable aux : std_logic_vector(31 downto 0);
 	begin
-		if alu_sel = "000" then
+		if alu_sel = "00" then
 			aux := A + B;
-		elsif alu_sel = "001" then
+		elsif alu_sel = "01" then
 			aux := A - B;
-		elsif alu_sel = "010" then
+		elsif alu_sel = "10" then
 			aux := A and B;
-		elsif alu_sel = "011" then
+		elsif alu_sel = "11" then
 			aux := A or B;
-		elsif alu_sel = "100" then
-			aux := A;
-		elsif alu_sel = "101" then
-			aux := B;
-		elsif alu_sel = "110" then
-			aux := not A;
-		elsif  alu_sel = "111" then
-			aux := not B;
+		--elsif alu_sel = "100" then
+			--aux := A;
+		--elsif alu_sel = "101" then
+			--aux := B;
+		--elsif alu_sel = "110" then
+			---aux := not A;
+		--elsif  alu_sel = "111" then
+			--aux := not B;
 		end if;
 	
 	if (aux = "00000000000000000000000000000000") then
