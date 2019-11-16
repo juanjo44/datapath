@@ -6,11 +6,8 @@ entity SISTEMA is
 port
 (
 	clock, clear : in std_logic;
-	entradaSistema : in std_logic_vector (31 downto 0);
-	regDst : in std_logic;
-	enableMux4 : in std_logic_vector (1 downto 0);
-	enableMux2 : in std_logic;
-	salidaAlu: out std_logic_vector (7 downto 0)
+	entradaMemoria : in std_logic_vector (31 downto 0);
+	salidadDelB,direccion : out std_logic_vector (31 downto 0)
 );
 end SISTEMA;
 
@@ -41,8 +38,8 @@ component registro
 port(
 	clk,
 	clr: in  std_logic;
-	d:   in  std_logic_vector (7 downto 0);
-	q:   out std_logic_vector (7 downto 0)
+	d:   in  std_logic_vector (31 downto 0);
+	q:   out std_logic_vector (31 downto 0)
 );
 end component;
 
@@ -77,8 +74,8 @@ component MUX4
 port
 (
 	enable : in std_logic_vector(1 downto 0);
-	A, B, C, D : in std_logic_vector(7 downto 0);
-	salida : out std_logic_vector(7 downto 0)
+	A, B, C, D : in std_logic_vector(31 downto 0);
+	salida : out std_logic_vector(31 downto 0)
 );
 end component;
 
@@ -94,17 +91,17 @@ end component;
 component shiftLeft2
 port
 (
-	cuatroMasSignificativo : in unsigned(3 downto 0);
-	entrada : in unsigned(25 downto 0);
-	salida : out unsigned(31 downto 0)
+	cuatroMasSignificativo : in std_logic_vector(3 downto 0);
+	entrada : in std_logic_vector(25 downto 0);
+	salida : out std_logic_vector(31 downto 0)
 );
 end component;
 
 component shiftLeft2Abajo
 port
 (
-	entrada : in unsigned(31 downto 0);
-	salida : out unsigned(31 downto 0)
+	entrada : in std_logic_vector(31 downto 0);
+	salida : out std_logic_vector(31 downto 0)
 );
 end component;
 
@@ -112,6 +109,7 @@ component instructionRegister
 port
 (
 	clk : in std_logic;
+	enable : in std_logic;
 	entrada : in std_logic_vector(31 downto 0);
 	salida : out std_logic_vector(31 downto 0)
 );
@@ -128,7 +126,7 @@ port(
 );
 end component;
 
-component cajitaAnd
+component cajitaAnds
 port(
 	entradaZeroAlu, entradaBranch, entradaPcWrite : in std_logic;
 	senalSalida : out std_logic
@@ -140,10 +138,27 @@ port(
 	enable, clk: in  std_logic;
 	entrada:   in  std_logic_vector (31 downto 0);
 	salida:   out std_logic_vector (31 downto 0)
-)
+);
 end component;
 
-signal isa31_26, isa25_21, isa20_16, isa15_0, entradaA, entradaB, salidaA, salidaB, salidaSignExtend,salidaShiftLeft2Abajo, conectorMux2AAlu, conectorMux4AAlu, conectorMux2AAbajoRegister, senalCajitaAnds, senalSalidaPcconectorAluAluOut:std_logic_vector (7 downto 0);
+
+
+--Senales de 1
+signal senalBranch, senalPcWrite, senalIorD,senalMemRead, senalMemWrite, senalMemtoReg, senalIRWrite, senalALUSrcA, senalRegWrite,senalRegDst,senalZero,senalCajitaAnds : std_logic;
+--Senales de 2
+signal senalPCSrc, senalALUSrcB : std_logic_vector(1 downto 0);
+--Senales de 3
+signal senalALUOp : std_logic_vector(2 downto 0);
+--Senales de 6
+signal senalIsa31_26 : std_logic_vector(5 downto 0);
+--Senales de 5
+signal senalIsa25_21, senalIsa20_16, entradaWriteRegister : std_logic_vector(4 downto 0);
+--Senales de 15
+signal senalIsa15_0 : std_logic_vector(14 downto 0);
+--Senales de 25
+signal senalIsa25_0 : std_logic_vector(24 downto 0);
+--Senales de 32
+signal conectorMux2AAbajoRegister,entradaA, entradaB, salidaA, salidaB,conectorMux2AAlu, senalSalidaPc,salidaSignExtend,salidaShiftLeft2Abajo,conectorMux4AAlu,senalMDR,salidaMux3,salidaShiftLeftArriba,salidaAlu, senalSalidaAluOut, conectorAluAluOut : std_logic_vector(31 downto 0);
 
 begin
 
@@ -151,7 +166,7 @@ begin
 	--unidad de Control
 	unidad_de_control : unidadDeControl
 	port map(
-	instruction => isa31_26,
+	instruction => senalIsa31_26,
 	clk => clock,
 	nRst => clear,
 	Branch => senalBranch,
@@ -162,7 +177,7 @@ begin
 	MemtoReg => senalMemtoReg,
 	IRWrite => senalIRWrite,
 	PCSrc => senalPCSrc,
-	ALUOp => senalALUOp,
+	ALUOp => senalALUOp, --De tres
 	ALUSrcB => senalALUsrcB,
 	ALUSrcA => senalALUSrcA,
 	RegWrite => senalRegWrite,
@@ -174,29 +189,30 @@ begin
 	port map(
 	enable => senalIRWrite,
 	entrada => entradaMemoria,
-	clk => clock,	salida(31 downto 26) => isa31_26,
-	salida(25 downto 21) => isa25_21,
-	salida(21 downto 16) => isa20_16,
-	salida(15 downto 0) => isa15_0,
-	salida(25 downto 0) => isa25_0
+	clk => clock,
+	salida(31 downto 26) => senalIsa31_26,
+	salida(25 downto 21) => senalIsa25_21,
+	salida(21 downto 16) => senalIsa20_16,
+	salida(15 downto 0) => senalIsa15_0,
+	salida(25 downto 0) => senalIsa25_0
 	);
 	
 	--Multiplexor para decidir entre rt o rd
 	mux_instruction_a_registers : MUX25Bits
 	port map(
 	enable => senalRegDst,
-	A => isa20_16,
-	B => isa15_0(15 downto 11)
+	A => senalIsa20_16,
+	B => senalIsa15_0(15 downto 11),
 	salida => entradaWriteRegister
 	);
 	
 	--Trabajo con el registers
-	registers_ : registers
+	registers_reg : registers
 	port map(
 	clk => clock,
 	regWrite => senalRegWrite,
-	readRegister1 => isa25_21,
-	readRegister2 => isa20_16,
+	readRegister1 => senalIsa25_21,
+	readRegister2 => senalIsa20_16,
 	writeRegister => entradaWriteRegister,
 	writeData => conectorMux2AAbajoRegister, -- ESta quemado mientras
 	readData1 => entradaA,
@@ -246,7 +262,7 @@ begin
 	--Trabajo con el SignExtend
 	sign_extend : signExtend
 	port map(
-	entrada => isa15_0,
+	entrada => senalIsa15_0,
 	salida => salidaSignExtend
 	);
 	
@@ -263,7 +279,7 @@ begin
 	port map(
 	clk => clock,
 	clr => clear,
-	d => entradaMemoria,
+	d => entradaMemoria,-------------------------------------
 	q => senalMDR
 	);
 	
@@ -277,11 +293,11 @@ begin
 	salida => conectorMux2AAbajoRegister
 	);
 	--Trabajo caja And y or de arriba
-	cajita_and_or : cajitaAnd
+	cajita_and_or : cajitaAnds
 	port map(
 	entradaZeroAlu => senalZero,
 	entradaBranch => senalBranch, 
-	entradaPcWrite => senalPcWrite
+	entradaPcWrite => senalPcWrite,
 	senalSalida => senalCajitaAnds
 	);
 
@@ -290,7 +306,6 @@ begin
 	port map(
 	enable => senalCajitaAnds,
 	clk => clock,
-	clr => clear,
 	entrada => salidaMux3,
 	salida => senalSalidaPc
 	);
@@ -298,7 +313,7 @@ begin
 	shift_left_2_arriba :shiftLeft2
 	port map(
 	cuatroMasSignificativo => senalSalidaPc(31 downto 28),
-	entrada => isa25_0,
+	entrada => senalIsa25_0,
 	salida => salidaShiftLeftArriba
 	);
 	
@@ -323,11 +338,13 @@ begin
 	
 	A => conectorMux2AAlu,
 	B => conectorMux4AAlu,
-	alu_sel => ALUOp,
-	alu_out => conectorAluAluOut
+	alu_sel => senalALUOp,
+	alu_out => conectorAluAluOut,
 	zero => senalZero
 	);
 	
+	
+	--Trabajo con aluout
 	aluOut : registro
 	port map(
 	clk => clock,
@@ -335,6 +352,15 @@ begin
 	d => conectorAluAluOut,
 	q => senalSalidaAluOut
 	);
-
+	
+	--Trabajo con el mux entre pc y memeory
+	muxPCAMemory : MUX2
+	port map(
+	enable => senalIOrD,
+	
+	A => senalSalidaPc,
+	B => senalSalidaAluOut,
+	salida => direccion
+	);
 
 end arch;

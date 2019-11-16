@@ -6,9 +6,9 @@ use ieee.numeric_std.all;
 entity shiftLeft2 is
 port
 (
-	cuatroMasSignificativo : in unsigned(3 downto 0);
-	entrada : in unsigned(25 downto 0);
-	salida : out unsigned(31 downto 0)
+	cuatroMasSignificativo : in std_logic_vector(3 downto 0);
+	entrada : in std_logic_vector(25 downto 0);
+	salida : out std_logic_vector(31 downto 0)
 );
 
 end shiftLeft2;
@@ -17,6 +17,10 @@ architecture arch of shiftLeft2 is
 begin
 	process (cuatroMasSignificativo, entrada)
 	begin
-		salida <= cuatroMasSignificativo & "00" & shift_left(entrada, 2);
+		salida(31 downto 28) <= cuatroMasSignificativo;
+		salida(27 downto 26) <= "00";
+		salida(25 downto 2) <= entrada(23 downto 0);
+		salida(1 downto 0) <= "00";
+		
 	end process;
 end arch;

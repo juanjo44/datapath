@@ -5,8 +5,8 @@ port
 (
   clk,
   clr: in  std_logic;
-  d:   in  std_logic_vector (7 downto 0);
-  q:   out std_logic_vector (7 downto 0)
+  d:   in  std_logic_vector (31 downto 0);
+  q:   out std_logic_vector (31 downto 0)
 );
 end registro;
 

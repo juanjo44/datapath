@@ -24,9 +24,9 @@ port(
 	);
 end entity;
 
-architecture uc of unidadDeControl 
+architecture uc of unidadDeControl is
 
-	type uc_state is (Fetch, Decode, MemAddr, Execute,TipoI,TipoIWriteBack, BranchState, Jump, MemReadState, MemWriteState, AluWriteback, MemWriteback)
+	type uc_state is (Fetch, Decode, MemAddr, Execute,TipoI,TipoIWriteBack, BranchState, Jump, MemReadState, MemWriteState, AluWriteback, MemWriteback);
 	signal State : uc_state;
 	
 begin
@@ -35,7 +35,7 @@ begin
 	begin
 		if rising_edge(Clk) then
 			if state = Fetch then
-				state = Decode;
+				state <= Decode;
 			else if state = Decode then
 				--lw o sw
             if instruction = "100011" or instruction = "101011" then
@@ -53,19 +53,19 @@ begin
 			elsif state = memAddr then
             --if lw
             if instruction = "100011" then
-            state <= memRead;
+            state <= memReadState;
             else
-            stable <= memWrite;
+            state <= memWriteState;
             end if;
 			elsif state = TipoI then
             state <= TipoIWriteBack;
 			elsif state = TipoIWriteBack then
             state <= Fetch;
-			elsif state = memRead then
+			elsif state = memReadState then
             state <= memWriteBack;
 			elsif state = memWriteBack then
             state <= Fetch;
-			elsif state = memWrite then
+			elsif state = memWriteState then
             state <= Fetch;
 			elsif state = execute then
             state <= AluWriteback;
@@ -87,13 +87,13 @@ begin
 				MemWrite <= '0';
 				MemToReg <= '0';
 				IRWrite	<= '0';
-				PCSrc		<= '0';
-				ALUOp		<= '0';
-				ALUSrcB	<= '0';
+				PCSrc		<= "00";
+				ALUOp		<= "00";
+				ALUSrcB	<= "00";
 				ALUSrcA	<= '0';
 				RegWrite <= '0';
 				regDst	<='0';
-			else:
+			else
 				Branch	<= '0';
 				PcWrite	<= '0';
 				IorD		<= '0';
@@ -101,45 +101,45 @@ begin
 				MemWrite <= '0';
 				MemToReg <= '0';
 				IRWrite	<= '0';
-				PCSrc		<= '00';
-				ALUOp		<= '00';
-				ALUSrcB	<= '00';
+				PCSrc		<= "00";
+				ALUOp		<= "00";
+				ALUSrcB	<= "00";
 				ALUSrcA	<= '0';
 				RegWrite <= '0';
-				regDst	<='0';
+				regDst	<= '0';
 				
 				case State is 
 					when Fetch =>
 						IorD <= '0';
 						MemRead <= '1';
 						ALUSrcA <= '0';
-						ALUSrcB <= '01;
-						ALUOp <= '00';
-						PCSrc <= '00';
+						ALUSrcB <= "01";
+						ALUOp <= "00";
+						PCSrc <= "00";
 						IRWrite <= '1';
 						PCWrite <= '1';
 					when Decode =>
 						AluSrcA <= '0';
-						AluSrcB <= '11';
-						AluOp <= '00';
-					if instruction = '100011' or instruction = '101011' and state
+						AluSrcB <= "11";
+						AluOp <= "00";
+					--if instruction = "100011" or instruction = "101011" and state
 					when MemAddr =>
 						AluSrcA <= '1';
-						AluSrcB <= '10';
-						ALUOp <= '00';
+						AluSrcB <= "10";
+						ALUOp <= "00";
 						--aqui  va un if para decidir siguiente  estado
 					when Execute =>
 						AluSrcA <= '1';
-						AluSrcB <= '00';
-						ALUOp <= '10';
+						AluSrcB <= "00";
+						ALUOp <= "10";
 					when BranchState =>
 						AluSrcA <= '1';
-						AluSrcB <= '00';
-						ALUOp <= '01';
-						PCSrc <= '01';
+						AluSrcB <= "00";
+						ALUOp <= "01";
+						PCSrc <= "01";
 						Branch <= '1';
 					when Jump =>
-						PCSrc <= '10';
+						PCSrc <= "10";
 						PCWrite <= '1';
 					when MemReadState =>
 						IorD <= '1';
@@ -157,14 +157,14 @@ begin
 						RegWrite <= '1';
 					when tipoI =>
 						PCWrite <= '0';
-						PCSrc <= '10';
-						ALUOp <= '00';
-						ALUSrcB <= '10';
+						PCSrc <= "10";
+						ALUOp <= "00";
+						ALUSrcB <= "10";
 						ALUSrcA <= '1';
 					when TipoIWriteBack =>
-						PCSrc <= '00';
-						ALUOp <= '00';
-						ALUSrcB <= '00';
+						PCSrc <= "00";
+						ALUOp <= "00";
+						ALUSrcB <= "00";
 						ALUSrcA <= '0';
 						RegWrite <= '1';
 				end case;

@@ -18,4 +18,4 @@ begin
 		salida <= entrada;
 	end if;
   end process;
-end pc;
+end arch;
