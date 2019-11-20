@@ -3,7 +3,6 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity unidadDeControl is
-generic(ClockFrecuencyHz : integer);
 port(
 	instruction	: in std_logic_vector (5 downto 0);
 	Clk			: in  std_logic;
@@ -46,8 +45,15 @@ begin
             --beq
             elsif instruction = "000100" then
             state <= BranchState;
+				--jump
+				-- PENDIENTE
+				-- -DSFWEFG
+				--GFWEGWEG
+				--EGWEGERG
+				--elsif instruction = "..." then
+				--state <= Jump;
             --addi
-            elsif instruction = "001000" then
+            else
             state <= TipoI;
             end if;
 			elsif state = memAddr then
@@ -69,17 +75,20 @@ begin
             state <= Fetch;
 			elsif state = execute then
             state <= AluWriteback;
-			elsif state = AluWriteback then
+			else 
             state <= Fetch;
 			--elsif state = "1000" then
             --currentState <="0000";
         end if;
 		end if;
-			
-			
+		end if;
+	end process;
+	
+	process(state) is
+	begin
 			if nRst =  '0' then
 				--Reset values
-				state		<= Fetch;
+				--state		<= Fetch;
 				Branch	<= '0';
 				PcWrite	<= '0';
 				IorD		<= '0';
@@ -94,6 +103,7 @@ begin
 				RegWrite <= '0';
 				regDst	<='0';
 			else
+			--	CUIDADO CON ESTA PARTE
 				Branch	<= '0';
 				PcWrite	<= '0';
 				IorD		<= '0';
@@ -118,60 +128,219 @@ begin
 						PCSrc <= "00";
 						IRWrite <= '1';
 						PCWrite <= '1';
+						-- las demas se ponen en 0's
+						Branch	<= '0';
+						MemWrite <= '0';
+						MemToReg <= '0';
+						RegWrite <= '0';
+						regDst	<='0';
 					when Decode =>
 						AluSrcA <= '0';
 						AluSrcB <= "11";
 						AluOp <= "00";
+						-- los demas se ponen en 0's
+						Branch	<= '0';
+						PcWrite	<= '0';
+						IorD		<= '0';
+						MemRead	<= '0';
+						MemWrite <= '0';
+						MemToReg <= '0';
+						IRWrite	<= '0';
+						PCSrc		<= "00";
+						RegWrite <= '0';
+						regDst	<='0';
 					--if instruction = "100011" or instruction = "101011" and state
 					when MemAddr =>
 						AluSrcA <= '1';
 						AluSrcB <= "10";
 						ALUOp <= "00";
+						-- los demas se ponen en 0's
+						Branch	<= '0';
+						PcWrite	<= '0';
+						IorD		<= '0';
+						MemRead	<= '0';
+						MemWrite <= '0';
+						MemToReg <= '0';
+						IRWrite	<= '0';
+						PCSrc		<= "00";
+						RegWrite <= '0';
+						regDst	<='0';
 						--aqui  va un if para decidir siguiente  estado
 					when Execute =>
 						AluSrcA <= '1';
 						AluSrcB <= "00";
 						ALUOp <= "10";
+						-- los demas se ponen en 0's
+						Branch	<= '0';
+						PcWrite	<= '0';
+						IorD		<= '0';
+						MemRead	<= '0';
+						MemWrite <= '0';
+						MemToReg <= '0';
+						IRWrite	<= '0';
+						PCSrc		<= "00";
+						RegWrite <= '0';
+						regDst	<='0';
 					when BranchState =>
 						AluSrcA <= '1';
 						AluSrcB <= "00";
 						ALUOp <= "01";
 						PCSrc <= "01";
 						Branch <= '1';
+						-- los demas se ponen en 0's
+						PcWrite	<= '0';
+						IorD		<= '0';
+						MemRead	<= '0';
+						MemWrite <= '0';
+						MemToReg <= '0';
+						IRWrite	<= '0';
+						RegWrite <= '0';
+						regDst	<='0';
 					when Jump =>
 						PCSrc <= "10";
 						PCWrite <= '1';
+						-- LAS DEMAS SEÑALES SE PONEN EN 0'S
+						Branch	<= '0';
+						--PcWrite	<= '0';
+						IorD		<= '0';
+						MemRead	<= '0';
+						MemWrite <= '0';
+						MemToReg <= '0';
+						IRWrite	<= '0';
+						--PCSrc		<= "00";
+						ALUOp		<= "00";
+						ALUSrcB	<= "00";
+						ALUSrcA	<= '0';
+						RegWrite <= '0';
+						regDst	<= '0';
 					when MemReadState =>
 						IorD <= '1';
 						MemRead <= '1';
+						-- las demas señales se ponen en 0's
+						Branch	<= '0';
+						PcWrite	<= '0';
+						--IorD		<= '0';
+						--MemRead	<= '0';
+						MemWrite <= '0';
+						MemToReg <= '0';
+						IRWrite	<= '0';
+						PCSrc		<= "00";
+						ALUOp		<= "00";
+						ALUSrcB	<= "00";
+						ALUSrcA	<= '0';
+						RegWrite <= '0';
+						regDst	<= '0';
 					when MemWriteState =>
 						IorD <= '1';
 						MemWrite <= '1';
+						-- las demas señales se ponen en 0's
+						Branch	<= '0';
+						PcWrite	<= '0';
+						--IorD		<= '0';
+						MemRead	<= '0';
+						--MemWrite <= '0';
+						MemToReg <= '0';
+						IRWrite	<= '0';
+						PCSrc		<= "00";
+						ALUOp		<= "00";
+						ALUSrcB	<= "00";
+						ALUSrcA	<= '0';
+						RegWrite <= '0';
+						regDst	<= '0';
 					when AluWriteback =>
 						RegDst <= '1';
 						MemToReg <= '0';
 						RegWrite <= '1';
+						-- las demas señales se ponen en 0's
+						Branch	<= '0';
+						PcWrite	<= '0';
+						IorD		<= '0';
+						MemRead	<= '0';
+						MemWrite <= '0';
+						--MemToReg <= '0';
+						IRWrite	<= '0';
+						PCSrc		<= "00";
+						ALUOp		<= "00";
+						ALUSrcB	<= "00";
+						ALUSrcA	<= '0';
+						--RegWrite <= '0';
+						--regDst	<= '0';
 					when MemWriteback =>
 						RegDst <= '0';
 						MemToReg <= '1';
 						RegWrite <= '1';
+						-- las demas señales se ponen en 0's
+						Branch	<= '0';
+						PcWrite	<= '0';
+						IorD		<= '0';
+						MemRead	<= '0';
+						MemWrite <= '0';
+						--MemToReg <= '0';
+						IRWrite	<= '0';
+						PCSrc		<= "00";
+						ALUOp		<= "00";
+						ALUSrcB	<= "00";
+						ALUSrcA	<= '0';
+						--RegWrite <= '0';
+						--regDst	<= '0';
 					when tipoI =>
 						PCWrite <= '0';
 						PCSrc <= "10";
 						ALUOp <= "00";
 						ALUSrcB <= "10";
 						ALUSrcA <= '1';
+						-- las demas señales se ponen en 0's
+						Branch	<= '0';
+						--PcWrite	<= '0';
+						IorD		<= '0';
+						MemRead	<= '0';
+						MemWrite <= '0';
+						MemToReg <= '0';
+						IRWrite	<= '0';
+						--PCSrc		<= "00";
+						--ALUOp		<= "00";
+						--ALUSrcB	<= "00";
+						--ALUSrcA	<= '0';
+						RegWrite <= '0';
+						regDst	<= '0';
 					when TipoIWriteBack =>
 						PCSrc <= "00";
 						ALUOp <= "00";
 						ALUSrcB <= "00";
 						ALUSrcA <= '0';
 						RegWrite <= '1';
+						-- las demas señales se ponen en 0's
+						Branch	<= '0';
+						PcWrite	<= '0';
+						IorD		<= '0';
+						MemRead	<= '0';
+						MemWrite <= '0';
+						MemToReg <= '0';
+						IRWrite	<= '0';
+						--PCSrc		<= "00";
+						--ALUOp		<= "00";
+						--ALUSrcB	<= "00";
+						--ALUSrcA	<= '0';
+						--RegWrite <= '0';
+						regDst	<= '0';
+					when others =>
+						state		<= Fetch;
+						Branch	<= '0';
+						PcWrite	<= '0';
+						IorD		<= '0';
+						MemRead	<= '0';
+						MemWrite <= '0';
+						MemToReg <= '0';
+						IRWrite	<= '0';
+						PCSrc		<= "00";
+						ALUOp		<= "00";
+						ALUSrcB	<= "00";
+						ALUSrcA	<= '0';
+						RegWrite <= '0';
+						regDst	<='0';
 				end case;
 			
 			end if;
-		
-		end  if;
 	end process;
 	
 end architecture;

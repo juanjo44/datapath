@@ -1,0 +1,15 @@
+
+State Machine - |unidadDeControl|State
+Name State.MemWriteback State.AluWriteback State.MemWriteState State.MemReadState State.Jump State.BranchState State.TipoIWriteBack State.TipoI State.Execute State.MemAddr State.Decode State.Fetch 
+State.Fetch 0 0 0 0 0 0 0 0 0 0 0 0 
+State.Decode 0 0 0 0 0 0 0 0 0 0 1 1 
+State.MemAddr 0 0 0 0 0 0 0 0 0 1 0 1 
+State.Execute 0 0 0 0 0 0 0 0 1 0 0 1 
+State.TipoI 0 0 0 0 0 0 0 1 0 0 0 1 
+State.TipoIWriteBack 0 0 0 0 0 0 1 0 0 0 0 1 
+State.BranchState 0 0 0 0 0 1 0 0 0 0 0 1 
+State.Jump 0 0 0 0 1 0 0 0 0 0 0 1 
+State.MemReadState 0 0 0 1 0 0 0 0 0 0 0 1 
+State.MemWriteState 0 0 1 0 0 0 0 0 0 0 0 1 
+State.AluWriteback 0 1 0 0 0 0 0 0 0 0 0 1 
+State.MemWriteback 1 0 0 0 0 0 0 0 0 0 0 1 

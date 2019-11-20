@@ -1,5 +1,5 @@
 TimeQuest Timing Analyzer report for SISTEMA
-Sat Nov 16 06:52:20 2019
+Tue Nov 19 16:01:56 2019
 Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
 
 
@@ -16,23 +16,42 @@ Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edit
   8. Slow Model Recovery Summary
   9. Slow Model Removal Summary
  10. Slow Model Minimum Pulse Width Summary
- 11. Propagation Delay
- 12. Minimum Propagation Delay
- 13. Fast Model Setup Summary
- 14. Fast Model Hold Summary
- 15. Fast Model Recovery Summary
- 16. Fast Model Removal Summary
- 17. Fast Model Minimum Pulse Width Summary
+ 11. Slow Model Setup: 'Clk'
+ 12. Slow Model Hold: 'Clk'
+ 13. Slow Model Minimum Pulse Width: 'Clk'
+ 14. Setup Times
+ 15. Hold Times
+ 16. Clock to Output Times
+ 17. Minimum Clock to Output Times
  18. Propagation Delay
  19. Minimum Propagation Delay
- 20. Multicorner Timing Analysis Summary
- 21. Progagation Delay
- 22. Minimum Progagation Delay
- 23. Clock Transfers
- 24. Report TCCS
- 25. Report RSKM
- 26. Unconstrained Paths
- 27. TimeQuest Timing Analyzer Messages
+ 20. Fast Model Setup Summary
+ 21. Fast Model Hold Summary
+ 22. Fast Model Recovery Summary
+ 23. Fast Model Removal Summary
+ 24. Fast Model Minimum Pulse Width Summary
+ 25. Fast Model Setup: 'Clk'
+ 26. Fast Model Hold: 'Clk'
+ 27. Fast Model Minimum Pulse Width: 'Clk'
+ 28. Setup Times
+ 29. Hold Times
+ 30. Clock to Output Times
+ 31. Minimum Clock to Output Times
+ 32. Propagation Delay
+ 33. Minimum Propagation Delay
+ 34. Multicorner Timing Analysis Summary
+ 35. Setup Times
+ 36. Hold Times
+ 37. Clock to Output Times
+ 38. Minimum Clock to Output Times
+ 39. Progagation Delay
+ 40. Minimum Progagation Delay
+ 41. Setup Transfers
+ 42. Hold Transfers
+ 43. Report TCCS
+ 44. Report RSKM
+ 45. Unconstrained Paths
+ 46. TimeQuest Timing Analyzer Messages
 
 
 
@@ -79,28 +98,41 @@ Parallel compilation was disabled, but you have multiple processors available. E
 +----------------------------+--------+
 
 
-----------
-; Clocks ;
-----------
-No clocks to report.
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Clocks                                                                                                                                                                          ;
++------------+------+--------+------------+-------+-------+------------+-----------+-------------+-------+--------+-----------+------------+----------+--------+--------+---------+
+; Clock Name ; Type ; Period ; Frequency  ; Rise  ; Fall  ; Duty Cycle ; Divide by ; Multiply by ; Phase ; Offset ; Edge List ; Edge Shift ; Inverted ; Master ; Source ; Targets ;
++------------+------+--------+------------+-------+-------+------------+-----------+-------------+-------+--------+-----------+------------+----------+--------+--------+---------+
+; Clk        ; Base ; 1.000  ; 1000.0 MHz ; 0.000 ; 0.500 ;            ;           ;             ;       ;        ;           ;            ;          ;        ;        ; { Clk } ;
++------------+------+--------+------------+-------+-------+------------+-----------+-------------+-------+--------+-----------+------------+----------+--------+--------+---------+
 
 
----------------------------
-; Slow Model Fmax Summary ;
----------------------------
-No paths to report.
++-----------------------------------------------------------------------------------------------------------+
+; Slow Model Fmax Summary                                                                                   ;
++------------+-----------------+------------+---------------------------------------------------------------+
+; Fmax       ; Restricted Fmax ; Clock Name ; Note                                                          ;
++------------+-----------------+------------+---------------------------------------------------------------+
+; 536.48 MHz ; 380.08 MHz      ; Clk        ; limit due to minimum period restriction (max I/O toggle rate) ;
++------------+-----------------+------------+---------------------------------------------------------------+
+This panel reports FMAX for every clock in the design, regardless of the user-specified clock periods.  FMAX is only computed for paths where the source and destination registers or ports are driven by the same clock.  Paths of different clocks, including generated clocks, are ignored.  For paths between a clock and its inversion, FMAX is computed as if the rising and falling edges are scaled along with FMAX, such that the duty cycle (in terms of a percentage) is maintained. Altera recommends that you always use clock constraints and other slack reports for sign-off analysis.
 
 
-----------------------------
-; Slow Model Setup Summary ;
-----------------------------
-No paths to report.
++--------------------------------+
+; Slow Model Setup Summary       ;
++-------+--------+---------------+
+; Clock ; Slack  ; End Point TNS ;
++-------+--------+---------------+
+; Clk   ; -0.864 ; -3.142        ;
++-------+--------+---------------+
 
 
----------------------------
-; Slow Model Hold Summary ;
----------------------------
-No paths to report.
++-------------------------------+
+; Slow Model Hold Summary       ;
++-------+-------+---------------+
+; Clock ; Slack ; End Point TNS ;
++-------+-------+---------------+
+; Clk   ; 0.645 ; 0.000         ;
++-------+-------+---------------+
 
 
 -------------------------------
@@ -115,98 +147,292 @@ No paths to report.
 No paths to report.
 
 
-------------------------------------------
++----------------------------------------+
 ; Slow Model Minimum Pulse Width Summary ;
-------------------------------------------
-No paths to report.
++-------+--------+-----------------------+
+; Clock ; Slack  ; End Point TNS         ;
++-------+--------+-----------------------+
+; Clk   ; -1.631 ; -15.073               ;
++-------+--------+-----------------------+
 
 
-+-----------------------------------------------------+
-; Propagation Delay                                   ;
-+-------------+-------------+-------+----+----+-------+
-; Input Port  ; Output Port ; RR    ; RF ; FR ; FF    ;
-+-------------+-------------+-------+----+----+-------+
-; entrada[0]  ; salida[2]   ; 9.614 ;    ;    ; 9.614 ;
-; entrada[1]  ; salida[3]   ; 8.579 ;    ;    ; 8.579 ;
-; entrada[2]  ; salida[4]   ; 9.462 ;    ;    ; 9.462 ;
-; entrada[3]  ; salida[5]   ; 8.463 ;    ;    ; 8.463 ;
-; entrada[4]  ; salida[6]   ; 9.555 ;    ;    ; 9.555 ;
-; entrada[5]  ; salida[7]   ; 8.463 ;    ;    ; 8.463 ;
-; entrada[6]  ; salida[8]   ; 8.574 ;    ;    ; 8.574 ;
-; entrada[7]  ; salida[9]   ; 8.837 ;    ;    ; 8.837 ;
-; entrada[8]  ; salida[10]  ; 9.340 ;    ;    ; 9.340 ;
-; entrada[9]  ; salida[11]  ; 8.533 ;    ;    ; 8.533 ;
-; entrada[10] ; salida[12]  ; 9.593 ;    ;    ; 9.593 ;
-; entrada[11] ; salida[13]  ; 9.293 ;    ;    ; 9.293 ;
-; entrada[12] ; salida[14]  ; 8.534 ;    ;    ; 8.534 ;
-; entrada[13] ; salida[15]  ; 9.455 ;    ;    ; 9.455 ;
-; entrada[14] ; salida[16]  ; 9.349 ;    ;    ; 9.349 ;
-; entrada[15] ; salida[17]  ; 8.463 ;    ;    ; 8.463 ;
-; entrada[16] ; salida[18]  ; 9.542 ;    ;    ; 9.542 ;
-; entrada[17] ; salida[19]  ; 9.301 ;    ;    ; 9.301 ;
-; entrada[18] ; salida[20]  ; 9.592 ;    ;    ; 9.592 ;
-; entrada[19] ; salida[21]  ; 8.909 ;    ;    ; 8.909 ;
-; entrada[20] ; salida[22]  ; 8.523 ;    ;    ; 8.523 ;
-; entrada[21] ; salida[23]  ; 9.618 ;    ;    ; 9.618 ;
-; entrada[22] ; salida[24]  ; 9.504 ;    ;    ; 9.504 ;
-; entrada[23] ; salida[25]  ; 8.539 ;    ;    ; 8.539 ;
-; entrada[24] ; salida[26]  ; 9.340 ;    ;    ; 9.340 ;
-; entrada[25] ; salida[27]  ; 8.463 ;    ;    ; 8.463 ;
-; entrada[26] ; salida[28]  ; 9.507 ;    ;    ; 9.507 ;
-; entrada[27] ; salida[29]  ; 8.493 ;    ;    ; 8.493 ;
-; entrada[28] ; salida[30]  ; 9.297 ;    ;    ; 9.297 ;
-; entrada[29] ; salida[31]  ; 8.544 ;    ;    ; 8.544 ;
-+-------------+-------------+-------+----+----+-------+
++----------------------------------------------------------------------------------------------------------------------------+
+; Slow Model Setup: 'Clk'                                                                                                    ;
++--------+----------------------+----------------------+--------------+-------------+--------------+------------+------------+
+; Slack  ; From Node            ; To Node              ; Launch Clock ; Latch Clock ; Relationship ; Clock Skew ; Data Delay ;
++--------+----------------------+----------------------+--------------+-------------+--------------+------------+------------+
+; -0.864 ; State.MemReadState   ; State.AluWriteback   ; Clk          ; Clk         ; 1.000        ; 0.000      ; 1.902      ;
+; -0.861 ; State.MemReadState   ; State.Fetch          ; Clk          ; Clk         ; 1.000        ; 0.000      ; 1.899      ;
+; -0.844 ; State.TipoI          ; State.AluWriteback   ; Clk          ; Clk         ; 1.000        ; 0.000      ; 1.882      ;
+; -0.840 ; State.TipoI          ; State.Fetch          ; Clk          ; Clk         ; 1.000        ; 0.000      ; 1.878      ;
+; -0.718 ; State.Fetch          ; State.AluWriteback   ; Clk          ; Clk         ; 1.000        ; 0.000      ; 1.756      ;
+; -0.715 ; State.Fetch          ; State.Fetch          ; Clk          ; Clk         ; 1.000        ; 0.000      ; 1.753      ;
+; -0.705 ; State.TipoIWriteBack ; State.Fetch          ; Clk          ; Clk         ; 1.000        ; 0.000      ; 1.743      ;
+; -0.701 ; State.TipoIWriteBack ; State.AluWriteback   ; Clk          ; Clk         ; 1.000        ; 0.000      ; 1.739      ;
+; -0.699 ; State.MemAddr        ; State.AluWriteback   ; Clk          ; Clk         ; 1.000        ; 0.000      ; 1.737      ;
+; -0.695 ; State.MemAddr        ; State.Fetch          ; Clk          ; Clk         ; 1.000        ; 0.000      ; 1.733      ;
+; -0.526 ; State.Decode         ; State.AluWriteback   ; Clk          ; Clk         ; 1.000        ; 0.000      ; 1.564      ;
+; -0.522 ; State.Decode         ; State.Fetch          ; Clk          ; Clk         ; 1.000        ; 0.000      ; 1.560      ;
+; -0.518 ; State.Execute        ; State.AluWriteback   ; Clk          ; Clk         ; 1.000        ; 0.000      ; 1.556      ;
+; -0.515 ; State.Execute        ; State.Fetch          ; Clk          ; Clk         ; 1.000        ; 0.000      ; 1.553      ;
+; -0.466 ; State.MemWriteback   ; State.Fetch          ; Clk          ; Clk         ; 1.000        ; 0.000      ; 1.504      ;
+; -0.462 ; State.MemWriteback   ; State.AluWriteback   ; Clk          ; Clk         ; 1.000        ; 0.000      ; 1.500      ;
+; -0.356 ; State.MemWriteState  ; State.Fetch          ; Clk          ; Clk         ; 1.000        ; 0.000      ; 1.394      ;
+; -0.352 ; State.MemWriteState  ; State.AluWriteback   ; Clk          ; Clk         ; 1.000        ; 0.000      ; 1.390      ;
+; -0.307 ; State.Decode         ; State.TipoI          ; Clk          ; Clk         ; 1.000        ; 0.000      ; 1.345      ;
+; -0.306 ; State.Decode         ; State.MemAddr        ; Clk          ; Clk         ; 1.000        ; 0.000      ; 1.344      ;
+; -0.306 ; State.Decode         ; State.Execute        ; Clk          ; Clk         ; 1.000        ; 0.000      ; 1.344      ;
+; -0.305 ; State.Decode         ; State.BranchState    ; Clk          ; Clk         ; 1.000        ; 0.000      ; 1.343      ;
+; -0.057 ; State.MemAddr        ; State.MemWriteState  ; Clk          ; Clk         ; 1.000        ; 0.000      ; 1.095      ;
+; -0.055 ; State.MemAddr        ; State.MemReadState   ; Clk          ; Clk         ; 1.000        ; 0.000      ; 1.093      ;
+; -0.049 ; State.TipoI          ; State.TipoIWriteBack ; Clk          ; Clk         ; 1.000        ; 0.000      ; 1.087      ;
+; -0.032 ; State.MemReadState   ; State.MemWriteback   ; Clk          ; Clk         ; 1.000        ; 0.000      ; 1.070      ;
+; 0.107  ; State.Fetch          ; State.Decode         ; Clk          ; Clk         ; 1.000        ; 0.000      ; 0.931      ;
++--------+----------------------+----------------------+--------------+-------------+--------------+------------+------------+
 
 
-+-----------------------------------------------------+
-; Minimum Propagation Delay                           ;
-+-------------+-------------+-------+----+----+-------+
-; Input Port  ; Output Port ; RR    ; RF ; FR ; FF    ;
-+-------------+-------------+-------+----+----+-------+
-; entrada[0]  ; salida[2]   ; 9.614 ;    ;    ; 9.614 ;
-; entrada[1]  ; salida[3]   ; 8.579 ;    ;    ; 8.579 ;
-; entrada[2]  ; salida[4]   ; 9.462 ;    ;    ; 9.462 ;
-; entrada[3]  ; salida[5]   ; 8.463 ;    ;    ; 8.463 ;
-; entrada[4]  ; salida[6]   ; 9.555 ;    ;    ; 9.555 ;
-; entrada[5]  ; salida[7]   ; 8.463 ;    ;    ; 8.463 ;
-; entrada[6]  ; salida[8]   ; 8.574 ;    ;    ; 8.574 ;
-; entrada[7]  ; salida[9]   ; 8.837 ;    ;    ; 8.837 ;
-; entrada[8]  ; salida[10]  ; 9.340 ;    ;    ; 9.340 ;
-; entrada[9]  ; salida[11]  ; 8.533 ;    ;    ; 8.533 ;
-; entrada[10] ; salida[12]  ; 9.593 ;    ;    ; 9.593 ;
-; entrada[11] ; salida[13]  ; 9.293 ;    ;    ; 9.293 ;
-; entrada[12] ; salida[14]  ; 8.534 ;    ;    ; 8.534 ;
-; entrada[13] ; salida[15]  ; 9.455 ;    ;    ; 9.455 ;
-; entrada[14] ; salida[16]  ; 9.349 ;    ;    ; 9.349 ;
-; entrada[15] ; salida[17]  ; 8.463 ;    ;    ; 8.463 ;
-; entrada[16] ; salida[18]  ; 9.542 ;    ;    ; 9.542 ;
-; entrada[17] ; salida[19]  ; 9.301 ;    ;    ; 9.301 ;
-; entrada[18] ; salida[20]  ; 9.592 ;    ;    ; 9.592 ;
-; entrada[19] ; salida[21]  ; 8.909 ;    ;    ; 8.909 ;
-; entrada[20] ; salida[22]  ; 8.523 ;    ;    ; 8.523 ;
-; entrada[21] ; salida[23]  ; 9.618 ;    ;    ; 9.618 ;
-; entrada[22] ; salida[24]  ; 9.504 ;    ;    ; 9.504 ;
-; entrada[23] ; salida[25]  ; 8.539 ;    ;    ; 8.539 ;
-; entrada[24] ; salida[26]  ; 9.340 ;    ;    ; 9.340 ;
-; entrada[25] ; salida[27]  ; 8.463 ;    ;    ; 8.463 ;
-; entrada[26] ; salida[28]  ; 9.507 ;    ;    ; 9.507 ;
-; entrada[27] ; salida[29]  ; 8.493 ;    ;    ; 8.493 ;
-; entrada[28] ; salida[30]  ; 9.297 ;    ;    ; 9.297 ;
-; entrada[29] ; salida[31]  ; 8.544 ;    ;    ; 8.544 ;
-+-------------+-------------+-------+----+----+-------+
++---------------------------------------------------------------------------------------------------------------------------+
+; Slow Model Hold: 'Clk'                                                                                                    ;
++-------+----------------------+----------------------+--------------+-------------+--------------+------------+------------+
+; Slack ; From Node            ; To Node              ; Launch Clock ; Latch Clock ; Relationship ; Clock Skew ; Data Delay ;
++-------+----------------------+----------------------+--------------+-------------+--------------+------------+------------+
+; 0.645 ; State.Fetch          ; State.Decode         ; Clk          ; Clk         ; 0.000        ; 0.000      ; 0.931      ;
+; 0.784 ; State.MemReadState   ; State.MemWriteback   ; Clk          ; Clk         ; 0.000        ; 0.000      ; 1.070      ;
+; 0.801 ; State.TipoI          ; State.TipoIWriteBack ; Clk          ; Clk         ; 0.000        ; 0.000      ; 1.087      ;
+; 0.807 ; State.MemAddr        ; State.MemReadState   ; Clk          ; Clk         ; 0.000        ; 0.000      ; 1.093      ;
+; 0.809 ; State.MemAddr        ; State.MemWriteState  ; Clk          ; Clk         ; 0.000        ; 0.000      ; 1.095      ;
+; 1.057 ; State.Decode         ; State.BranchState    ; Clk          ; Clk         ; 0.000        ; 0.000      ; 1.343      ;
+; 1.058 ; State.Decode         ; State.MemAddr        ; Clk          ; Clk         ; 0.000        ; 0.000      ; 1.344      ;
+; 1.058 ; State.Decode         ; State.Execute        ; Clk          ; Clk         ; 0.000        ; 0.000      ; 1.344      ;
+; 1.059 ; State.Decode         ; State.TipoI          ; Clk          ; Clk         ; 0.000        ; 0.000      ; 1.345      ;
+; 1.104 ; State.MemWriteState  ; State.AluWriteback   ; Clk          ; Clk         ; 0.000        ; 0.000      ; 1.390      ;
+; 1.108 ; State.MemWriteState  ; State.Fetch          ; Clk          ; Clk         ; 0.000        ; 0.000      ; 1.394      ;
+; 1.214 ; State.MemWriteback   ; State.AluWriteback   ; Clk          ; Clk         ; 0.000        ; 0.000      ; 1.500      ;
+; 1.218 ; State.MemWriteback   ; State.Fetch          ; Clk          ; Clk         ; 0.000        ; 0.000      ; 1.504      ;
+; 1.267 ; State.Execute        ; State.Fetch          ; Clk          ; Clk         ; 0.000        ; 0.000      ; 1.553      ;
+; 1.270 ; State.Execute        ; State.AluWriteback   ; Clk          ; Clk         ; 0.000        ; 0.000      ; 1.556      ;
+; 1.274 ; State.Decode         ; State.Fetch          ; Clk          ; Clk         ; 0.000        ; 0.000      ; 1.560      ;
+; 1.278 ; State.Decode         ; State.AluWriteback   ; Clk          ; Clk         ; 0.000        ; 0.000      ; 1.564      ;
+; 1.447 ; State.MemAddr        ; State.Fetch          ; Clk          ; Clk         ; 0.000        ; 0.000      ; 1.733      ;
+; 1.451 ; State.MemAddr        ; State.AluWriteback   ; Clk          ; Clk         ; 0.000        ; 0.000      ; 1.737      ;
+; 1.453 ; State.TipoIWriteBack ; State.AluWriteback   ; Clk          ; Clk         ; 0.000        ; 0.000      ; 1.739      ;
+; 1.457 ; State.TipoIWriteBack ; State.Fetch          ; Clk          ; Clk         ; 0.000        ; 0.000      ; 1.743      ;
+; 1.467 ; State.Fetch          ; State.Fetch          ; Clk          ; Clk         ; 0.000        ; 0.000      ; 1.753      ;
+; 1.470 ; State.Fetch          ; State.AluWriteback   ; Clk          ; Clk         ; 0.000        ; 0.000      ; 1.756      ;
+; 1.592 ; State.TipoI          ; State.Fetch          ; Clk          ; Clk         ; 0.000        ; 0.000      ; 1.878      ;
+; 1.596 ; State.TipoI          ; State.AluWriteback   ; Clk          ; Clk         ; 0.000        ; 0.000      ; 1.882      ;
+; 1.613 ; State.MemReadState   ; State.Fetch          ; Clk          ; Clk         ; 0.000        ; 0.000      ; 1.899      ;
+; 1.616 ; State.MemReadState   ; State.AluWriteback   ; Clk          ; Clk         ; 0.000        ; 0.000      ; 1.902      ;
++-------+----------------------+----------------------+--------------+-------------+--------------+------------+------------+
 
 
-----------------------------
-; Fast Model Setup Summary ;
-----------------------------
-No paths to report.
++-----------------------------------------------------------------------------------------------------------+
+; Slow Model Minimum Pulse Width: 'Clk'                                                                     ;
++--------+--------------+----------------+------------------+-------+------------+--------------------------+
+; Slack  ; Actual Width ; Required Width ; Type             ; Clock ; Clock Edge ; Target                   ;
++--------+--------------+----------------+------------------+-------+------------+--------------------------+
+; -1.631 ; 1.000        ; 2.631          ; Port Rate        ; Clk   ; Rise       ; Clk                      ;
+; -0.611 ; 0.500        ; 1.111          ; High Pulse Width ; Clk   ; Rise       ; State.AluWriteback       ;
+; -0.611 ; 0.500        ; 1.111          ; Low Pulse Width  ; Clk   ; Rise       ; State.AluWriteback       ;
+; -0.611 ; 0.500        ; 1.111          ; High Pulse Width ; Clk   ; Rise       ; State.BranchState        ;
+; -0.611 ; 0.500        ; 1.111          ; Low Pulse Width  ; Clk   ; Rise       ; State.BranchState        ;
+; -0.611 ; 0.500        ; 1.111          ; High Pulse Width ; Clk   ; Rise       ; State.Decode             ;
+; -0.611 ; 0.500        ; 1.111          ; Low Pulse Width  ; Clk   ; Rise       ; State.Decode             ;
+; -0.611 ; 0.500        ; 1.111          ; High Pulse Width ; Clk   ; Rise       ; State.Execute            ;
+; -0.611 ; 0.500        ; 1.111          ; Low Pulse Width  ; Clk   ; Rise       ; State.Execute            ;
+; -0.611 ; 0.500        ; 1.111          ; High Pulse Width ; Clk   ; Rise       ; State.Fetch              ;
+; -0.611 ; 0.500        ; 1.111          ; Low Pulse Width  ; Clk   ; Rise       ; State.Fetch              ;
+; -0.611 ; 0.500        ; 1.111          ; High Pulse Width ; Clk   ; Rise       ; State.MemAddr            ;
+; -0.611 ; 0.500        ; 1.111          ; Low Pulse Width  ; Clk   ; Rise       ; State.MemAddr            ;
+; -0.611 ; 0.500        ; 1.111          ; High Pulse Width ; Clk   ; Rise       ; State.MemReadState       ;
+; -0.611 ; 0.500        ; 1.111          ; Low Pulse Width  ; Clk   ; Rise       ; State.MemReadState       ;
+; -0.611 ; 0.500        ; 1.111          ; High Pulse Width ; Clk   ; Rise       ; State.MemWriteState      ;
+; -0.611 ; 0.500        ; 1.111          ; Low Pulse Width  ; Clk   ; Rise       ; State.MemWriteState      ;
+; -0.611 ; 0.500        ; 1.111          ; High Pulse Width ; Clk   ; Rise       ; State.MemWriteback       ;
+; -0.611 ; 0.500        ; 1.111          ; Low Pulse Width  ; Clk   ; Rise       ; State.MemWriteback       ;
+; -0.611 ; 0.500        ; 1.111          ; High Pulse Width ; Clk   ; Rise       ; State.TipoI              ;
+; -0.611 ; 0.500        ; 1.111          ; Low Pulse Width  ; Clk   ; Rise       ; State.TipoI              ;
+; -0.611 ; 0.500        ; 1.111          ; High Pulse Width ; Clk   ; Rise       ; State.TipoIWriteBack     ;
+; -0.611 ; 0.500        ; 1.111          ; Low Pulse Width  ; Clk   ; Rise       ; State.TipoIWriteBack     ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; Clk   ; Rise       ; Clk|combout              ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; Clk   ; Rise       ; Clk|combout              ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; Clk   ; Rise       ; Clk~clkctrl|inclk[0]     ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; Clk   ; Rise       ; Clk~clkctrl|inclk[0]     ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; Clk   ; Rise       ; Clk~clkctrl|outclk       ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; Clk   ; Rise       ; Clk~clkctrl|outclk       ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; Clk   ; Rise       ; State.AluWriteback|clk   ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; Clk   ; Rise       ; State.AluWriteback|clk   ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; Clk   ; Rise       ; State.BranchState|clk    ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; Clk   ; Rise       ; State.BranchState|clk    ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; Clk   ; Rise       ; State.Decode|clk         ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; Clk   ; Rise       ; State.Decode|clk         ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; Clk   ; Rise       ; State.Execute|clk        ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; Clk   ; Rise       ; State.Execute|clk        ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; Clk   ; Rise       ; State.Fetch|clk          ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; Clk   ; Rise       ; State.Fetch|clk          ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; Clk   ; Rise       ; State.MemAddr|clk        ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; Clk   ; Rise       ; State.MemAddr|clk        ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; Clk   ; Rise       ; State.MemReadState|clk   ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; Clk   ; Rise       ; State.MemReadState|clk   ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; Clk   ; Rise       ; State.MemWriteState|clk  ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; Clk   ; Rise       ; State.MemWriteState|clk  ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; Clk   ; Rise       ; State.MemWriteback|clk   ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; Clk   ; Rise       ; State.MemWriteback|clk   ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; Clk   ; Rise       ; State.TipoIWriteBack|clk ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; Clk   ; Rise       ; State.TipoIWriteBack|clk ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; Clk   ; Rise       ; State.TipoI|clk          ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; Clk   ; Rise       ; State.TipoI|clk          ;
++--------+--------------+----------------+------------------+-------+------------+--------------------------+
 
 
----------------------------
-; Fast Model Hold Summary ;
----------------------------
-No paths to report.
++-----------------------------------------------------------------------------+
+; Setup Times                                                                 ;
++-----------------+------------+-------+-------+------------+-----------------+
+; Data Port       ; Clock Port ; Rise  ; Fall  ; Clock Edge ; Clock Reference ;
++-----------------+------------+-------+-------+------------+-----------------+
+; instruction[*]  ; Clk        ; 5.123 ; 5.123 ; Rise       ; Clk             ;
+;  instruction[0] ; Clk        ; 4.774 ; 4.774 ; Rise       ; Clk             ;
+;  instruction[1] ; Clk        ; 4.927 ; 4.927 ; Rise       ; Clk             ;
+;  instruction[2] ; Clk        ; 4.715 ; 4.715 ; Rise       ; Clk             ;
+;  instruction[3] ; Clk        ; 5.123 ; 5.123 ; Rise       ; Clk             ;
+;  instruction[4] ; Clk        ; 4.918 ; 4.918 ; Rise       ; Clk             ;
+;  instruction[5] ; Clk        ; 3.868 ; 3.868 ; Rise       ; Clk             ;
++-----------------+------------+-------+-------+------------+-----------------+
+
+
++-------------------------------------------------------------------------------+
+; Hold Times                                                                    ;
++-----------------+------------+--------+--------+------------+-----------------+
+; Data Port       ; Clock Port ; Rise   ; Fall   ; Clock Edge ; Clock Reference ;
++-----------------+------------+--------+--------+------------+-----------------+
+; instruction[*]  ; Clk        ; -3.493 ; -3.493 ; Rise       ; Clk             ;
+;  instruction[0] ; Clk        ; -4.271 ; -4.271 ; Rise       ; Clk             ;
+;  instruction[1] ; Clk        ; -4.079 ; -4.079 ; Rise       ; Clk             ;
+;  instruction[2] ; Clk        ; -3.521 ; -3.521 ; Rise       ; Clk             ;
+;  instruction[3] ; Clk        ; -3.726 ; -3.726 ; Rise       ; Clk             ;
+;  instruction[4] ; Clk        ; -4.217 ; -4.217 ; Rise       ; Clk             ;
+;  instruction[5] ; Clk        ; -3.493 ; -3.493 ; Rise       ; Clk             ;
++-----------------+------------+--------+--------+------------+-----------------+
+
+
++-------------------------------------------------------------------------+
+; Clock to Output Times                                                   ;
++-------------+------------+-------+-------+------------+-----------------+
+; Data Port   ; Clock Port ; Rise  ; Fall  ; Clock Edge ; Clock Reference ;
++-------------+------------+-------+-------+------------+-----------------+
+; ALUOp[*]    ; Clk        ; 7.940 ; 7.940 ; Rise       ; Clk             ;
+;  ALUOp[0]   ; Clk        ; 7.937 ; 7.937 ; Rise       ; Clk             ;
+;  ALUOp[1]   ; Clk        ; 7.940 ; 7.940 ; Rise       ; Clk             ;
+; ALUSrcA     ; Clk        ; 9.460 ; 9.460 ; Rise       ; Clk             ;
+; ALUSrcB[*]  ; Clk        ; 8.538 ; 8.538 ; Rise       ; Clk             ;
+;  ALUSrcB[0] ; Clk        ; 8.001 ; 8.001 ; Rise       ; Clk             ;
+;  ALUSrcB[1] ; Clk        ; 8.538 ; 8.538 ; Rise       ; Clk             ;
+; Branch      ; Clk        ; 7.937 ; 7.937 ; Rise       ; Clk             ;
+; IRWrite     ; Clk        ; 8.245 ; 8.245 ; Rise       ; Clk             ;
+; IorD        ; Clk        ; 8.455 ; 8.455 ; Rise       ; Clk             ;
+; MemRead     ; Clk        ; 8.324 ; 8.324 ; Rise       ; Clk             ;
+; MemWrite    ; Clk        ; 8.297 ; 8.297 ; Rise       ; Clk             ;
+; MemtoReg    ; Clk        ; 8.808 ; 8.808 ; Rise       ; Clk             ;
+; PCSrc[*]    ; Clk        ; 8.020 ; 8.020 ; Rise       ; Clk             ;
+;  PCSrc[0]   ; Clk        ; 7.947 ; 7.947 ; Rise       ; Clk             ;
+;  PCSrc[1]   ; Clk        ; 8.020 ; 8.020 ; Rise       ; Clk             ;
+; PcWrite     ; Clk        ; 8.255 ; 8.255 ; Rise       ; Clk             ;
+; RegDst      ; Clk        ; 7.935 ; 7.935 ; Rise       ; Clk             ;
+; RegWrite    ; Clk        ; 8.992 ; 8.992 ; Rise       ; Clk             ;
++-------------+------------+-------+-------+------------+-----------------+
+
+
++-------------------------------------------------------------------------+
+; Minimum Clock to Output Times                                           ;
++-------------+------------+-------+-------+------------+-----------------+
+; Data Port   ; Clock Port ; Rise  ; Fall  ; Clock Edge ; Clock Reference ;
++-------------+------------+-------+-------+------------+-----------------+
+; ALUOp[*]    ; Clk        ; 7.937 ; 7.937 ; Rise       ; Clk             ;
+;  ALUOp[0]   ; Clk        ; 7.937 ; 7.937 ; Rise       ; Clk             ;
+;  ALUOp[1]   ; Clk        ; 7.940 ; 7.940 ; Rise       ; Clk             ;
+; ALUSrcA     ; Clk        ; 8.575 ; 8.575 ; Rise       ; Clk             ;
+; ALUSrcB[*]  ; Clk        ; 7.397 ; 7.397 ; Rise       ; Clk             ;
+;  ALUSrcB[0] ; Clk        ; 7.397 ; 7.397 ; Rise       ; Clk             ;
+;  ALUSrcB[1] ; Clk        ; 8.197 ; 8.197 ; Rise       ; Clk             ;
+; Branch      ; Clk        ; 7.937 ; 7.937 ; Rise       ; Clk             ;
+; IRWrite     ; Clk        ; 8.245 ; 8.245 ; Rise       ; Clk             ;
+; IorD        ; Clk        ; 7.671 ; 7.671 ; Rise       ; Clk             ;
+; MemRead     ; Clk        ; 8.143 ; 8.143 ; Rise       ; Clk             ;
+; MemWrite    ; Clk        ; 8.297 ; 8.297 ; Rise       ; Clk             ;
+; MemtoReg    ; Clk        ; 8.808 ; 8.808 ; Rise       ; Clk             ;
+; PCSrc[*]    ; Clk        ; 7.947 ; 7.947 ; Rise       ; Clk             ;
+;  PCSrc[0]   ; Clk        ; 7.947 ; 7.947 ; Rise       ; Clk             ;
+;  PCSrc[1]   ; Clk        ; 8.020 ; 8.020 ; Rise       ; Clk             ;
+; PcWrite     ; Clk        ; 8.255 ; 8.255 ; Rise       ; Clk             ;
+; RegDst      ; Clk        ; 7.935 ; 7.935 ; Rise       ; Clk             ;
+; RegWrite    ; Clk        ; 7.987 ; 7.987 ; Rise       ; Clk             ;
++-------------+------------+-------+-------+------------+-----------------+
+
+
++------------------------------------------------------+
+; Propagation Delay                                    ;
++------------+-------------+--------+----+----+--------+
+; Input Port ; Output Port ; RR     ; RF ; FR ; FF     ;
++------------+-------------+--------+----+----+--------+
+; nRst       ; ALUOp[0]    ; 10.867 ;    ;    ; 10.867 ;
+; nRst       ; ALUOp[1]    ; 9.987  ;    ;    ; 9.987  ;
+; nRst       ; ALUSrcA     ; 10.268 ;    ;    ; 10.268 ;
+; nRst       ; ALUSrcB[0]  ; 10.347 ;    ;    ; 10.347 ;
+; nRst       ; ALUSrcB[1]  ; 10.899 ;    ;    ; 10.899 ;
+; nRst       ; Branch      ; 10.867 ;    ;    ; 10.867 ;
+; nRst       ; IRWrite     ; 10.266 ;    ;    ; 10.266 ;
+; nRst       ; IorD        ; 10.001 ;    ;    ; 10.001 ;
+; nRst       ; MemRead     ; 10.302 ;    ;    ; 10.302 ;
+; nRst       ; MemWrite    ; 9.998  ;    ;    ; 9.998  ;
+; nRst       ; MemtoReg    ; 10.266 ;    ;    ; 10.266 ;
+; nRst       ; PCSrc[0]    ; 10.877 ;    ;    ; 10.877 ;
+; nRst       ; PCSrc[1]    ; 10.290 ;    ;    ; 10.290 ;
+; nRst       ; PcWrite     ; 10.276 ;    ;    ; 10.276 ;
+; nRst       ; RegDst      ; 10.009 ;    ;    ; 10.009 ;
+; nRst       ; RegWrite    ; 10.268 ;    ;    ; 10.268 ;
++------------+-------------+--------+----+----+--------+
+
+
++------------------------------------------------------+
+; Minimum Propagation Delay                            ;
++------------+-------------+--------+----+----+--------+
+; Input Port ; Output Port ; RR     ; RF ; FR ; FF     ;
++------------+-------------+--------+----+----+--------+
+; nRst       ; ALUOp[0]    ; 10.867 ;    ;    ; 10.867 ;
+; nRst       ; ALUOp[1]    ; 9.987  ;    ;    ; 9.987  ;
+; nRst       ; ALUSrcA     ; 10.268 ;    ;    ; 10.268 ;
+; nRst       ; ALUSrcB[0]  ; 10.347 ;    ;    ; 10.347 ;
+; nRst       ; ALUSrcB[1]  ; 10.899 ;    ;    ; 10.899 ;
+; nRst       ; Branch      ; 10.867 ;    ;    ; 10.867 ;
+; nRst       ; IRWrite     ; 10.266 ;    ;    ; 10.266 ;
+; nRst       ; IorD        ; 10.001 ;    ;    ; 10.001 ;
+; nRst       ; MemRead     ; 10.302 ;    ;    ; 10.302 ;
+; nRst       ; MemWrite    ; 9.998  ;    ;    ; 9.998  ;
+; nRst       ; MemtoReg    ; 10.266 ;    ;    ; 10.266 ;
+; nRst       ; PCSrc[0]    ; 10.877 ;    ;    ; 10.877 ;
+; nRst       ; PCSrc[1]    ; 10.290 ;    ;    ; 10.290 ;
+; nRst       ; PcWrite     ; 10.276 ;    ;    ; 10.276 ;
+; nRst       ; RegDst      ; 10.009 ;    ;    ; 10.009 ;
+; nRst       ; RegWrite    ; 10.268 ;    ;    ; 10.268 ;
++------------+-------------+--------+----+----+--------+
+
+
++-------------------------------+
+; Fast Model Setup Summary      ;
++-------+-------+---------------+
+; Clock ; Slack ; End Point TNS ;
++-------+-------+---------------+
+; Clk   ; 0.230 ; 0.000         ;
++-------+-------+---------------+
+
+
++-------------------------------+
+; Fast Model Hold Summary       ;
++-------+-------+---------------+
+; Clock ; Slack ; End Point TNS ;
++-------+-------+---------------+
+; Clk   ; 0.273 ; 0.000         ;
++-------+-------+---------------+
 
 
 -------------------------------
@@ -221,178 +447,438 @@ No paths to report.
 No paths to report.
 
 
-------------------------------------------
++----------------------------------------+
 ; Fast Model Minimum Pulse Width Summary ;
-------------------------------------------
-No paths to report.
++-------+--------+-----------------------+
+; Clock ; Slack  ; End Point TNS         ;
++-------+--------+-----------------------+
+; Clk   ; -1.380 ; -12.380               ;
++-------+--------+-----------------------+
 
 
-+-----------------------------------------------------+
-; Propagation Delay                                   ;
-+-------------+-------------+-------+----+----+-------+
-; Input Port  ; Output Port ; RR    ; RF ; FR ; FF    ;
-+-------------+-------------+-------+----+----+-------+
-; entrada[0]  ; salida[2]   ; 5.050 ;    ;    ; 5.050 ;
-; entrada[1]  ; salida[3]   ; 4.650 ;    ;    ; 4.650 ;
-; entrada[2]  ; salida[4]   ; 4.938 ;    ;    ; 4.938 ;
-; entrada[3]  ; salida[5]   ; 4.542 ;    ;    ; 4.542 ;
-; entrada[4]  ; salida[6]   ; 5.017 ;    ;    ; 5.017 ;
-; entrada[5]  ; salida[7]   ; 4.542 ;    ;    ; 4.542 ;
-; entrada[6]  ; salida[8]   ; 4.636 ;    ;    ; 4.636 ;
-; entrada[7]  ; salida[9]   ; 4.702 ;    ;    ; 4.702 ;
-; entrada[8]  ; salida[10]  ; 4.960 ;    ;    ; 4.960 ;
-; entrada[9]  ; salida[11]  ; 4.612 ;    ;    ; 4.612 ;
-; entrada[10] ; salida[12]  ; 5.030 ;    ;    ; 5.030 ;
-; entrada[11] ; salida[13]  ; 4.924 ;    ;    ; 4.924 ;
-; entrada[12] ; salida[14]  ; 4.596 ;    ;    ; 4.596 ;
-; entrada[13] ; salida[15]  ; 4.935 ;    ;    ; 4.935 ;
-; entrada[14] ; salida[16]  ; 4.969 ;    ;    ; 4.969 ;
-; entrada[15] ; salida[17]  ; 4.542 ;    ;    ; 4.542 ;
-; entrada[16] ; salida[18]  ; 5.020 ;    ;    ; 5.020 ;
-; entrada[17] ; salida[19]  ; 4.920 ;    ;    ; 4.920 ;
-; entrada[18] ; salida[20]  ; 5.048 ;    ;    ; 5.048 ;
-; entrada[19] ; salida[21]  ; 4.780 ;    ;    ; 4.780 ;
-; entrada[20] ; salida[22]  ; 4.602 ;    ;    ; 4.602 ;
-; entrada[21] ; salida[23]  ; 5.057 ;    ;    ; 5.057 ;
-; entrada[22] ; salida[24]  ; 4.981 ;    ;    ; 4.981 ;
-; entrada[23] ; salida[25]  ; 4.610 ;    ;    ; 4.610 ;
-; entrada[24] ; salida[26]  ; 4.959 ;    ;    ; 4.959 ;
-; entrada[25] ; salida[27]  ; 4.542 ;    ;    ; 4.542 ;
-; entrada[26] ; salida[28]  ; 4.987 ;    ;    ; 4.987 ;
-; entrada[27] ; salida[29]  ; 4.572 ;    ;    ; 4.572 ;
-; entrada[28] ; salida[30]  ; 4.917 ;    ;    ; 4.917 ;
-; entrada[29] ; salida[31]  ; 4.606 ;    ;    ; 4.606 ;
-+-------------+-------------+-------+----+----+-------+
++---------------------------------------------------------------------------------------------------------------------------+
+; Fast Model Setup: 'Clk'                                                                                                   ;
++-------+----------------------+----------------------+--------------+-------------+--------------+------------+------------+
+; Slack ; From Node            ; To Node              ; Launch Clock ; Latch Clock ; Relationship ; Clock Skew ; Data Delay ;
++-------+----------------------+----------------------+--------------+-------------+--------------+------------+------------+
+; 0.230 ; State.TipoI          ; State.AluWriteback   ; Clk          ; Clk         ; 1.000        ; 0.000      ; 0.802      ;
+; 0.262 ; State.TipoI          ; State.Fetch          ; Clk          ; Clk         ; 1.000        ; 0.000      ; 0.770      ;
+; 0.286 ; State.MemReadState   ; State.AluWriteback   ; Clk          ; Clk         ; 1.000        ; 0.000      ; 0.746      ;
+; 0.295 ; State.MemReadState   ; State.Fetch          ; Clk          ; Clk         ; 1.000        ; 0.000      ; 0.737      ;
+; 0.311 ; State.MemAddr        ; State.AluWriteback   ; Clk          ; Clk         ; 1.000        ; 0.000      ; 0.721      ;
+; 0.335 ; State.Fetch          ; State.AluWriteback   ; Clk          ; Clk         ; 1.000        ; 0.000      ; 0.697      ;
+; 0.343 ; State.MemAddr        ; State.Fetch          ; Clk          ; Clk         ; 1.000        ; 0.000      ; 0.689      ;
+; 0.344 ; State.Fetch          ; State.Fetch          ; Clk          ; Clk         ; 1.000        ; 0.000      ; 0.688      ;
+; 0.348 ; State.TipoIWriteBack ; State.Fetch          ; Clk          ; Clk         ; 1.000        ; 0.000      ; 0.684      ;
+; 0.351 ; State.TipoIWriteBack ; State.AluWriteback   ; Clk          ; Clk         ; 1.000        ; 0.000      ; 0.681      ;
+; 0.375 ; State.Decode         ; State.AluWriteback   ; Clk          ; Clk         ; 1.000        ; 0.000      ; 0.657      ;
+; 0.401 ; State.Execute        ; State.AluWriteback   ; Clk          ; Clk         ; 1.000        ; 0.000      ; 0.631      ;
+; 0.407 ; State.Decode         ; State.Fetch          ; Clk          ; Clk         ; 1.000        ; 0.000      ; 0.625      ;
+; 0.411 ; State.Execute        ; State.Fetch          ; Clk          ; Clk         ; 1.000        ; 0.000      ; 0.621      ;
+; 0.415 ; State.MemWriteback   ; State.Fetch          ; Clk          ; Clk         ; 1.000        ; 0.000      ; 0.617      ;
+; 0.418 ; State.MemWriteback   ; State.AluWriteback   ; Clk          ; Clk         ; 1.000        ; 0.000      ; 0.614      ;
+; 0.445 ; State.Decode         ; State.Execute        ; Clk          ; Clk         ; 1.000        ; 0.000      ; 0.587      ;
+; 0.446 ; State.Decode         ; State.TipoI          ; Clk          ; Clk         ; 1.000        ; 0.000      ; 0.586      ;
+; 0.447 ; State.Decode         ; State.MemAddr        ; Clk          ; Clk         ; 1.000        ; 0.000      ; 0.585      ;
+; 0.447 ; State.Decode         ; State.BranchState    ; Clk          ; Clk         ; 1.000        ; 0.000      ; 0.585      ;
+; 0.467 ; State.MemWriteState  ; State.Fetch          ; Clk          ; Clk         ; 1.000        ; 0.000      ; 0.565      ;
+; 0.470 ; State.MemWriteState  ; State.AluWriteback   ; Clk          ; Clk         ; 1.000        ; 0.000      ; 0.562      ;
+; 0.534 ; State.TipoI          ; State.TipoIWriteBack ; Clk          ; Clk         ; 1.000        ; 0.000      ; 0.498      ;
+; 0.542 ; State.MemAddr        ; State.MemWriteState  ; Clk          ; Clk         ; 1.000        ; 0.000      ; 0.490      ;
+; 0.544 ; State.MemAddr        ; State.MemReadState   ; Clk          ; Clk         ; 1.000        ; 0.000      ; 0.488      ;
+; 0.545 ; State.MemReadState   ; State.MemWriteback   ; Clk          ; Clk         ; 1.000        ; 0.000      ; 0.487      ;
+; 0.607 ; State.Fetch          ; State.Decode         ; Clk          ; Clk         ; 1.000        ; 0.000      ; 0.425      ;
++-------+----------------------+----------------------+--------------+-------------+--------------+------------+------------+
 
 
-+-----------------------------------------------------+
-; Minimum Propagation Delay                           ;
-+-------------+-------------+-------+----+----+-------+
-; Input Port  ; Output Port ; RR    ; RF ; FR ; FF    ;
-+-------------+-------------+-------+----+----+-------+
-; entrada[0]  ; salida[2]   ; 5.050 ;    ;    ; 5.050 ;
-; entrada[1]  ; salida[3]   ; 4.650 ;    ;    ; 4.650 ;
-; entrada[2]  ; salida[4]   ; 4.938 ;    ;    ; 4.938 ;
-; entrada[3]  ; salida[5]   ; 4.542 ;    ;    ; 4.542 ;
-; entrada[4]  ; salida[6]   ; 5.017 ;    ;    ; 5.017 ;
-; entrada[5]  ; salida[7]   ; 4.542 ;    ;    ; 4.542 ;
-; entrada[6]  ; salida[8]   ; 4.636 ;    ;    ; 4.636 ;
-; entrada[7]  ; salida[9]   ; 4.702 ;    ;    ; 4.702 ;
-; entrada[8]  ; salida[10]  ; 4.960 ;    ;    ; 4.960 ;
-; entrada[9]  ; salida[11]  ; 4.612 ;    ;    ; 4.612 ;
-; entrada[10] ; salida[12]  ; 5.030 ;    ;    ; 5.030 ;
-; entrada[11] ; salida[13]  ; 4.924 ;    ;    ; 4.924 ;
-; entrada[12] ; salida[14]  ; 4.596 ;    ;    ; 4.596 ;
-; entrada[13] ; salida[15]  ; 4.935 ;    ;    ; 4.935 ;
-; entrada[14] ; salida[16]  ; 4.969 ;    ;    ; 4.969 ;
-; entrada[15] ; salida[17]  ; 4.542 ;    ;    ; 4.542 ;
-; entrada[16] ; salida[18]  ; 5.020 ;    ;    ; 5.020 ;
-; entrada[17] ; salida[19]  ; 4.920 ;    ;    ; 4.920 ;
-; entrada[18] ; salida[20]  ; 5.048 ;    ;    ; 5.048 ;
-; entrada[19] ; salida[21]  ; 4.780 ;    ;    ; 4.780 ;
-; entrada[20] ; salida[22]  ; 4.602 ;    ;    ; 4.602 ;
-; entrada[21] ; salida[23]  ; 5.057 ;    ;    ; 5.057 ;
-; entrada[22] ; salida[24]  ; 4.981 ;    ;    ; 4.981 ;
-; entrada[23] ; salida[25]  ; 4.610 ;    ;    ; 4.610 ;
-; entrada[24] ; salida[26]  ; 4.959 ;    ;    ; 4.959 ;
-; entrada[25] ; salida[27]  ; 4.542 ;    ;    ; 4.542 ;
-; entrada[26] ; salida[28]  ; 4.987 ;    ;    ; 4.987 ;
-; entrada[27] ; salida[29]  ; 4.572 ;    ;    ; 4.572 ;
-; entrada[28] ; salida[30]  ; 4.917 ;    ;    ; 4.917 ;
-; entrada[29] ; salida[31]  ; 4.606 ;    ;    ; 4.606 ;
-+-------------+-------------+-------+----+----+-------+
++---------------------------------------------------------------------------------------------------------------------------+
+; Fast Model Hold: 'Clk'                                                                                                    ;
++-------+----------------------+----------------------+--------------+-------------+--------------+------------+------------+
+; Slack ; From Node            ; To Node              ; Launch Clock ; Latch Clock ; Relationship ; Clock Skew ; Data Delay ;
++-------+----------------------+----------------------+--------------+-------------+--------------+------------+------------+
+; 0.273 ; State.Fetch          ; State.Decode         ; Clk          ; Clk         ; 0.000        ; 0.000      ; 0.425      ;
+; 0.335 ; State.MemReadState   ; State.MemWriteback   ; Clk          ; Clk         ; 0.000        ; 0.000      ; 0.487      ;
+; 0.336 ; State.MemAddr        ; State.MemReadState   ; Clk          ; Clk         ; 0.000        ; 0.000      ; 0.488      ;
+; 0.338 ; State.MemAddr        ; State.MemWriteState  ; Clk          ; Clk         ; 0.000        ; 0.000      ; 0.490      ;
+; 0.346 ; State.TipoI          ; State.TipoIWriteBack ; Clk          ; Clk         ; 0.000        ; 0.000      ; 0.498      ;
+; 0.410 ; State.MemWriteState  ; State.AluWriteback   ; Clk          ; Clk         ; 0.000        ; 0.000      ; 0.562      ;
+; 0.413 ; State.MemWriteState  ; State.Fetch          ; Clk          ; Clk         ; 0.000        ; 0.000      ; 0.565      ;
+; 0.433 ; State.Decode         ; State.MemAddr        ; Clk          ; Clk         ; 0.000        ; 0.000      ; 0.585      ;
+; 0.433 ; State.Decode         ; State.BranchState    ; Clk          ; Clk         ; 0.000        ; 0.000      ; 0.585      ;
+; 0.434 ; State.Decode         ; State.TipoI          ; Clk          ; Clk         ; 0.000        ; 0.000      ; 0.586      ;
+; 0.435 ; State.Decode         ; State.Execute        ; Clk          ; Clk         ; 0.000        ; 0.000      ; 0.587      ;
+; 0.462 ; State.MemWriteback   ; State.AluWriteback   ; Clk          ; Clk         ; 0.000        ; 0.000      ; 0.614      ;
+; 0.465 ; State.MemWriteback   ; State.Fetch          ; Clk          ; Clk         ; 0.000        ; 0.000      ; 0.617      ;
+; 0.469 ; State.Execute        ; State.Fetch          ; Clk          ; Clk         ; 0.000        ; 0.000      ; 0.621      ;
+; 0.473 ; State.Decode         ; State.Fetch          ; Clk          ; Clk         ; 0.000        ; 0.000      ; 0.625      ;
+; 0.479 ; State.Execute        ; State.AluWriteback   ; Clk          ; Clk         ; 0.000        ; 0.000      ; 0.631      ;
+; 0.505 ; State.Decode         ; State.AluWriteback   ; Clk          ; Clk         ; 0.000        ; 0.000      ; 0.657      ;
+; 0.529 ; State.TipoIWriteBack ; State.AluWriteback   ; Clk          ; Clk         ; 0.000        ; 0.000      ; 0.681      ;
+; 0.532 ; State.TipoIWriteBack ; State.Fetch          ; Clk          ; Clk         ; 0.000        ; 0.000      ; 0.684      ;
+; 0.536 ; State.Fetch          ; State.Fetch          ; Clk          ; Clk         ; 0.000        ; 0.000      ; 0.688      ;
+; 0.537 ; State.MemAddr        ; State.Fetch          ; Clk          ; Clk         ; 0.000        ; 0.000      ; 0.689      ;
+; 0.545 ; State.Fetch          ; State.AluWriteback   ; Clk          ; Clk         ; 0.000        ; 0.000      ; 0.697      ;
+; 0.569 ; State.MemAddr        ; State.AluWriteback   ; Clk          ; Clk         ; 0.000        ; 0.000      ; 0.721      ;
+; 0.585 ; State.MemReadState   ; State.Fetch          ; Clk          ; Clk         ; 0.000        ; 0.000      ; 0.737      ;
+; 0.594 ; State.MemReadState   ; State.AluWriteback   ; Clk          ; Clk         ; 0.000        ; 0.000      ; 0.746      ;
+; 0.618 ; State.TipoI          ; State.Fetch          ; Clk          ; Clk         ; 0.000        ; 0.000      ; 0.770      ;
+; 0.650 ; State.TipoI          ; State.AluWriteback   ; Clk          ; Clk         ; 0.000        ; 0.000      ; 0.802      ;
++-------+----------------------+----------------------+--------------+-------------+--------------+------------+------------+
 
 
-+----------------------------------------------------------------------------+
-; Multicorner Timing Analysis Summary                                        ;
-+------------------+-------+------+----------+---------+---------------------+
-; Clock            ; Setup ; Hold ; Recovery ; Removal ; Minimum Pulse Width ;
-+------------------+-------+------+----------+---------+---------------------+
-; Worst-case Slack ; N/A   ; N/A  ; N/A      ; N/A     ; N/A                 ;
-; Design-wide TNS  ; 0.0   ; 0.0  ; 0.0      ; 0.0     ; 0.0                 ;
-+------------------+-------+------+----------+---------+---------------------+
++-----------------------------------------------------------------------------------------------------------+
+; Fast Model Minimum Pulse Width: 'Clk'                                                                     ;
++--------+--------------+----------------+------------------+-------+------------+--------------------------+
+; Slack  ; Actual Width ; Required Width ; Type             ; Clock ; Clock Edge ; Target                   ;
++--------+--------------+----------------+------------------+-------+------------+--------------------------+
+; -1.380 ; 1.000        ; 2.380          ; Port Rate        ; Clk   ; Rise       ; Clk                      ;
+; -0.500 ; 0.500        ; 1.000          ; High Pulse Width ; Clk   ; Rise       ; State.AluWriteback       ;
+; -0.500 ; 0.500        ; 1.000          ; Low Pulse Width  ; Clk   ; Rise       ; State.AluWriteback       ;
+; -0.500 ; 0.500        ; 1.000          ; High Pulse Width ; Clk   ; Rise       ; State.BranchState        ;
+; -0.500 ; 0.500        ; 1.000          ; Low Pulse Width  ; Clk   ; Rise       ; State.BranchState        ;
+; -0.500 ; 0.500        ; 1.000          ; High Pulse Width ; Clk   ; Rise       ; State.Decode             ;
+; -0.500 ; 0.500        ; 1.000          ; Low Pulse Width  ; Clk   ; Rise       ; State.Decode             ;
+; -0.500 ; 0.500        ; 1.000          ; High Pulse Width ; Clk   ; Rise       ; State.Execute            ;
+; -0.500 ; 0.500        ; 1.000          ; Low Pulse Width  ; Clk   ; Rise       ; State.Execute            ;
+; -0.500 ; 0.500        ; 1.000          ; High Pulse Width ; Clk   ; Rise       ; State.Fetch              ;
+; -0.500 ; 0.500        ; 1.000          ; Low Pulse Width  ; Clk   ; Rise       ; State.Fetch              ;
+; -0.500 ; 0.500        ; 1.000          ; High Pulse Width ; Clk   ; Rise       ; State.MemAddr            ;
+; -0.500 ; 0.500        ; 1.000          ; Low Pulse Width  ; Clk   ; Rise       ; State.MemAddr            ;
+; -0.500 ; 0.500        ; 1.000          ; High Pulse Width ; Clk   ; Rise       ; State.MemReadState       ;
+; -0.500 ; 0.500        ; 1.000          ; Low Pulse Width  ; Clk   ; Rise       ; State.MemReadState       ;
+; -0.500 ; 0.500        ; 1.000          ; High Pulse Width ; Clk   ; Rise       ; State.MemWriteState      ;
+; -0.500 ; 0.500        ; 1.000          ; Low Pulse Width  ; Clk   ; Rise       ; State.MemWriteState      ;
+; -0.500 ; 0.500        ; 1.000          ; High Pulse Width ; Clk   ; Rise       ; State.MemWriteback       ;
+; -0.500 ; 0.500        ; 1.000          ; Low Pulse Width  ; Clk   ; Rise       ; State.MemWriteback       ;
+; -0.500 ; 0.500        ; 1.000          ; High Pulse Width ; Clk   ; Rise       ; State.TipoI              ;
+; -0.500 ; 0.500        ; 1.000          ; Low Pulse Width  ; Clk   ; Rise       ; State.TipoI              ;
+; -0.500 ; 0.500        ; 1.000          ; High Pulse Width ; Clk   ; Rise       ; State.TipoIWriteBack     ;
+; -0.500 ; 0.500        ; 1.000          ; Low Pulse Width  ; Clk   ; Rise       ; State.TipoIWriteBack     ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; Clk   ; Rise       ; Clk|combout              ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; Clk   ; Rise       ; Clk|combout              ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; Clk   ; Rise       ; Clk~clkctrl|inclk[0]     ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; Clk   ; Rise       ; Clk~clkctrl|inclk[0]     ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; Clk   ; Rise       ; Clk~clkctrl|outclk       ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; Clk   ; Rise       ; Clk~clkctrl|outclk       ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; Clk   ; Rise       ; State.AluWriteback|clk   ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; Clk   ; Rise       ; State.AluWriteback|clk   ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; Clk   ; Rise       ; State.BranchState|clk    ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; Clk   ; Rise       ; State.BranchState|clk    ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; Clk   ; Rise       ; State.Decode|clk         ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; Clk   ; Rise       ; State.Decode|clk         ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; Clk   ; Rise       ; State.Execute|clk        ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; Clk   ; Rise       ; State.Execute|clk        ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; Clk   ; Rise       ; State.Fetch|clk          ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; Clk   ; Rise       ; State.Fetch|clk          ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; Clk   ; Rise       ; State.MemAddr|clk        ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; Clk   ; Rise       ; State.MemAddr|clk        ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; Clk   ; Rise       ; State.MemReadState|clk   ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; Clk   ; Rise       ; State.MemReadState|clk   ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; Clk   ; Rise       ; State.MemWriteState|clk  ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; Clk   ; Rise       ; State.MemWriteState|clk  ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; Clk   ; Rise       ; State.MemWriteback|clk   ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; Clk   ; Rise       ; State.MemWriteback|clk   ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; Clk   ; Rise       ; State.TipoIWriteBack|clk ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; Clk   ; Rise       ; State.TipoIWriteBack|clk ;
+; 0.500  ; 0.500        ; 0.000          ; High Pulse Width ; Clk   ; Rise       ; State.TipoI|clk          ;
+; 0.500  ; 0.500        ; 0.000          ; Low Pulse Width  ; Clk   ; Rise       ; State.TipoI|clk          ;
++--------+--------------+----------------+------------------+-------+------------+--------------------------+
 
 
-+-----------------------------------------------------+
-; Progagation Delay                                   ;
-+-------------+-------------+-------+----+----+-------+
-; Input Port  ; Output Port ; RR    ; RF ; FR ; FF    ;
-+-------------+-------------+-------+----+----+-------+
-; entrada[0]  ; salida[2]   ; 9.614 ;    ;    ; 9.614 ;
-; entrada[1]  ; salida[3]   ; 8.579 ;    ;    ; 8.579 ;
-; entrada[2]  ; salida[4]   ; 9.462 ;    ;    ; 9.462 ;
-; entrada[3]  ; salida[5]   ; 8.463 ;    ;    ; 8.463 ;
-; entrada[4]  ; salida[6]   ; 9.555 ;    ;    ; 9.555 ;
-; entrada[5]  ; salida[7]   ; 8.463 ;    ;    ; 8.463 ;
-; entrada[6]  ; salida[8]   ; 8.574 ;    ;    ; 8.574 ;
-; entrada[7]  ; salida[9]   ; 8.837 ;    ;    ; 8.837 ;
-; entrada[8]  ; salida[10]  ; 9.340 ;    ;    ; 9.340 ;
-; entrada[9]  ; salida[11]  ; 8.533 ;    ;    ; 8.533 ;
-; entrada[10] ; salida[12]  ; 9.593 ;    ;    ; 9.593 ;
-; entrada[11] ; salida[13]  ; 9.293 ;    ;    ; 9.293 ;
-; entrada[12] ; salida[14]  ; 8.534 ;    ;    ; 8.534 ;
-; entrada[13] ; salida[15]  ; 9.455 ;    ;    ; 9.455 ;
-; entrada[14] ; salida[16]  ; 9.349 ;    ;    ; 9.349 ;
-; entrada[15] ; salida[17]  ; 8.463 ;    ;    ; 8.463 ;
-; entrada[16] ; salida[18]  ; 9.542 ;    ;    ; 9.542 ;
-; entrada[17] ; salida[19]  ; 9.301 ;    ;    ; 9.301 ;
-; entrada[18] ; salida[20]  ; 9.592 ;    ;    ; 9.592 ;
-; entrada[19] ; salida[21]  ; 8.909 ;    ;    ; 8.909 ;
-; entrada[20] ; salida[22]  ; 8.523 ;    ;    ; 8.523 ;
-; entrada[21] ; salida[23]  ; 9.618 ;    ;    ; 9.618 ;
-; entrada[22] ; salida[24]  ; 9.504 ;    ;    ; 9.504 ;
-; entrada[23] ; salida[25]  ; 8.539 ;    ;    ; 8.539 ;
-; entrada[24] ; salida[26]  ; 9.340 ;    ;    ; 9.340 ;
-; entrada[25] ; salida[27]  ; 8.463 ;    ;    ; 8.463 ;
-; entrada[26] ; salida[28]  ; 9.507 ;    ;    ; 9.507 ;
-; entrada[27] ; salida[29]  ; 8.493 ;    ;    ; 8.493 ;
-; entrada[28] ; salida[30]  ; 9.297 ;    ;    ; 9.297 ;
-; entrada[29] ; salida[31]  ; 8.544 ;    ;    ; 8.544 ;
-+-------------+-------------+-------+----+----+-------+
++-----------------------------------------------------------------------------+
+; Setup Times                                                                 ;
++-----------------+------------+-------+-------+------------+-----------------+
+; Data Port       ; Clock Port ; Rise  ; Fall  ; Clock Edge ; Clock Reference ;
++-----------------+------------+-------+-------+------------+-----------------+
+; instruction[*]  ; Clk        ; 2.172 ; 2.172 ; Rise       ; Clk             ;
+;  instruction[0] ; Clk        ; 2.034 ; 2.034 ; Rise       ; Clk             ;
+;  instruction[1] ; Clk        ; 2.122 ; 2.122 ; Rise       ; Clk             ;
+;  instruction[2] ; Clk        ; 2.054 ; 2.054 ; Rise       ; Clk             ;
+;  instruction[3] ; Clk        ; 2.172 ; 2.172 ; Rise       ; Clk             ;
+;  instruction[4] ; Clk        ; 2.101 ; 2.101 ; Rise       ; Clk             ;
+;  instruction[5] ; Clk        ; 1.705 ; 1.705 ; Rise       ; Clk             ;
++-----------------+------------+-------+-------+------------+-----------------+
 
 
-+-----------------------------------------------------+
-; Minimum Progagation Delay                           ;
-+-------------+-------------+-------+----+----+-------+
-; Input Port  ; Output Port ; RR    ; RF ; FR ; FF    ;
-+-------------+-------------+-------+----+----+-------+
-; entrada[0]  ; salida[2]   ; 5.050 ;    ;    ; 5.050 ;
-; entrada[1]  ; salida[3]   ; 4.650 ;    ;    ; 4.650 ;
-; entrada[2]  ; salida[4]   ; 4.938 ;    ;    ; 4.938 ;
-; entrada[3]  ; salida[5]   ; 4.542 ;    ;    ; 4.542 ;
-; entrada[4]  ; salida[6]   ; 5.017 ;    ;    ; 5.017 ;
-; entrada[5]  ; salida[7]   ; 4.542 ;    ;    ; 4.542 ;
-; entrada[6]  ; salida[8]   ; 4.636 ;    ;    ; 4.636 ;
-; entrada[7]  ; salida[9]   ; 4.702 ;    ;    ; 4.702 ;
-; entrada[8]  ; salida[10]  ; 4.960 ;    ;    ; 4.960 ;
-; entrada[9]  ; salida[11]  ; 4.612 ;    ;    ; 4.612 ;
-; entrada[10] ; salida[12]  ; 5.030 ;    ;    ; 5.030 ;
-; entrada[11] ; salida[13]  ; 4.924 ;    ;    ; 4.924 ;
-; entrada[12] ; salida[14]  ; 4.596 ;    ;    ; 4.596 ;
-; entrada[13] ; salida[15]  ; 4.935 ;    ;    ; 4.935 ;
-; entrada[14] ; salida[16]  ; 4.969 ;    ;    ; 4.969 ;
-; entrada[15] ; salida[17]  ; 4.542 ;    ;    ; 4.542 ;
-; entrada[16] ; salida[18]  ; 5.020 ;    ;    ; 5.020 ;
-; entrada[17] ; salida[19]  ; 4.920 ;    ;    ; 4.920 ;
-; entrada[18] ; salida[20]  ; 5.048 ;    ;    ; 5.048 ;
-; entrada[19] ; salida[21]  ; 4.780 ;    ;    ; 4.780 ;
-; entrada[20] ; salida[22]  ; 4.602 ;    ;    ; 4.602 ;
-; entrada[21] ; salida[23]  ; 5.057 ;    ;    ; 5.057 ;
-; entrada[22] ; salida[24]  ; 4.981 ;    ;    ; 4.981 ;
-; entrada[23] ; salida[25]  ; 4.610 ;    ;    ; 4.610 ;
-; entrada[24] ; salida[26]  ; 4.959 ;    ;    ; 4.959 ;
-; entrada[25] ; salida[27]  ; 4.542 ;    ;    ; 4.542 ;
-; entrada[26] ; salida[28]  ; 4.987 ;    ;    ; 4.987 ;
-; entrada[27] ; salida[29]  ; 4.572 ;    ;    ; 4.572 ;
-; entrada[28] ; salida[30]  ; 4.917 ;    ;    ; 4.917 ;
-; entrada[29] ; salida[31]  ; 4.606 ;    ;    ; 4.606 ;
-+-------------+-------------+-------+----+----+-------+
++-------------------------------------------------------------------------------+
+; Hold Times                                                                    ;
++-----------------+------------+--------+--------+------------+-----------------+
+; Data Port       ; Clock Port ; Rise   ; Fall   ; Clock Edge ; Clock Reference ;
++-----------------+------------+--------+--------+------------+-----------------+
+; instruction[*]  ; Clk        ; -1.559 ; -1.559 ; Rise       ; Clk             ;
+;  instruction[0] ; Clk        ; -1.837 ; -1.837 ; Rise       ; Clk             ;
+;  instruction[1] ; Clk        ; -1.792 ; -1.792 ; Rise       ; Clk             ;
+;  instruction[2] ; Clk        ; -1.559 ; -1.559 ; Rise       ; Clk             ;
+;  instruction[3] ; Clk        ; -1.644 ; -1.644 ; Rise       ; Clk             ;
+;  instruction[4] ; Clk        ; -1.828 ; -1.828 ; Rise       ; Clk             ;
+;  instruction[5] ; Clk        ; -1.568 ; -1.568 ; Rise       ; Clk             ;
++-----------------+------------+--------+--------+------------+-----------------+
 
 
--------------------
-; Clock Transfers ;
--------------------
-Nothing to report.
++-------------------------------------------------------------------------+
+; Clock to Output Times                                                   ;
++-------------+------------+-------+-------+------------+-----------------+
+; Data Port   ; Clock Port ; Rise  ; Fall  ; Clock Edge ; Clock Reference ;
++-------------+------------+-------+-------+------------+-----------------+
+; ALUOp[*]    ; Clk        ; 4.155 ; 4.155 ; Rise       ; Clk             ;
+;  ALUOp[0]   ; Clk        ; 4.155 ; 4.155 ; Rise       ; Clk             ;
+;  ALUOp[1]   ; Clk        ; 4.147 ; 4.147 ; Rise       ; Clk             ;
+; ALUSrcA     ; Clk        ; 4.681 ; 4.681 ; Rise       ; Clk             ;
+; ALUSrcB[*]  ; Clk        ; 4.372 ; 4.372 ; Rise       ; Clk             ;
+;  ALUSrcB[0] ; Clk        ; 4.188 ; 4.188 ; Rise       ; Clk             ;
+;  ALUSrcB[1] ; Clk        ; 4.372 ; 4.372 ; Rise       ; Clk             ;
+; Branch      ; Clk        ; 4.155 ; 4.155 ; Rise       ; Clk             ;
+; IRWrite     ; Clk        ; 4.286 ; 4.286 ; Rise       ; Clk             ;
+; IorD        ; Clk        ; 4.324 ; 4.324 ; Rise       ; Clk             ;
+; MemRead     ; Clk        ; 4.319 ; 4.319 ; Rise       ; Clk             ;
+; MemWrite    ; Clk        ; 4.292 ; 4.292 ; Rise       ; Clk             ;
+; MemtoReg    ; Clk        ; 4.471 ; 4.471 ; Rise       ; Clk             ;
+; PCSrc[*]    ; Clk        ; 4.203 ; 4.203 ; Rise       ; Clk             ;
+;  PCSrc[0]   ; Clk        ; 4.165 ; 4.165 ; Rise       ; Clk             ;
+;  PCSrc[1]   ; Clk        ; 4.203 ; 4.203 ; Rise       ; Clk             ;
+; PcWrite     ; Clk        ; 4.296 ; 4.296 ; Rise       ; Clk             ;
+; RegDst      ; Clk        ; 4.145 ; 4.145 ; Rise       ; Clk             ;
+; RegWrite    ; Clk        ; 4.529 ; 4.529 ; Rise       ; Clk             ;
++-------------+------------+-------+-------+------------+-----------------+
+
+
++-------------------------------------------------------------------------+
+; Minimum Clock to Output Times                                           ;
++-------------+------------+-------+-------+------------+-----------------+
+; Data Port   ; Clock Port ; Rise  ; Fall  ; Clock Edge ; Clock Reference ;
++-------------+------------+-------+-------+------------+-----------------+
+; ALUOp[*]    ; Clk        ; 4.147 ; 4.147 ; Rise       ; Clk             ;
+;  ALUOp[0]   ; Clk        ; 4.155 ; 4.155 ; Rise       ; Clk             ;
+;  ALUOp[1]   ; Clk        ; 4.147 ; 4.147 ; Rise       ; Clk             ;
+; ALUSrcA     ; Clk        ; 4.377 ; 4.377 ; Rise       ; Clk             ;
+; ALUSrcB[*]  ; Clk        ; 3.966 ; 3.966 ; Rise       ; Clk             ;
+;  ALUSrcB[0] ; Clk        ; 3.966 ; 3.966 ; Rise       ; Clk             ;
+;  ALUSrcB[1] ; Clk        ; 4.253 ; 4.253 ; Rise       ; Clk             ;
+; Branch      ; Clk        ; 4.155 ; 4.155 ; Rise       ; Clk             ;
+; IRWrite     ; Clk        ; 4.286 ; 4.286 ; Rise       ; Clk             ;
+; IorD        ; Clk        ; 4.042 ; 4.042 ; Rise       ; Clk             ;
+; MemRead     ; Clk        ; 4.244 ; 4.244 ; Rise       ; Clk             ;
+; MemWrite    ; Clk        ; 4.292 ; 4.292 ; Rise       ; Clk             ;
+; MemtoReg    ; Clk        ; 4.471 ; 4.471 ; Rise       ; Clk             ;
+; PCSrc[*]    ; Clk        ; 4.165 ; 4.165 ; Rise       ; Clk             ;
+;  PCSrc[0]   ; Clk        ; 4.165 ; 4.165 ; Rise       ; Clk             ;
+;  PCSrc[1]   ; Clk        ; 4.203 ; 4.203 ; Rise       ; Clk             ;
+; PcWrite     ; Clk        ; 4.296 ; 4.296 ; Rise       ; Clk             ;
+; RegDst      ; Clk        ; 4.145 ; 4.145 ; Rise       ; Clk             ;
+; RegWrite    ; Clk        ; 4.152 ; 4.152 ; Rise       ; Clk             ;
++-------------+------------+-------+-------+------------+-----------------+
+
+
++----------------------------------------------------+
+; Propagation Delay                                  ;
++------------+-------------+-------+----+----+-------+
+; Input Port ; Output Port ; RR    ; RF ; FR ; FF    ;
++------------+-------------+-------+----+----+-------+
+; nRst       ; ALUOp[0]    ; 5.468 ;    ;    ; 5.468 ;
+; nRst       ; ALUOp[1]    ; 5.135 ;    ;    ; 5.135 ;
+; nRst       ; ALUSrcA     ; 5.242 ;    ;    ; 5.242 ;
+; nRst       ; ALUSrcB[0]  ; 5.276 ;    ;    ; 5.276 ;
+; nRst       ; ALUSrcB[1]  ; 5.473 ;    ;    ; 5.473 ;
+; nRst       ; Branch      ; 5.468 ;    ;    ; 5.468 ;
+; nRst       ; IRWrite     ; 5.262 ;    ;    ; 5.262 ;
+; nRst       ; IorD        ; 5.144 ;    ;    ; 5.144 ;
+; nRst       ; MemRead     ; 5.278 ;    ;    ; 5.278 ;
+; nRst       ; MemWrite    ; 5.145 ;    ;    ; 5.145 ;
+; nRst       ; MemtoReg    ; 5.240 ;    ;    ; 5.240 ;
+; nRst       ; PCSrc[0]    ; 5.478 ;    ;    ; 5.478 ;
+; nRst       ; PCSrc[1]    ; 5.265 ;    ;    ; 5.265 ;
+; nRst       ; PcWrite     ; 5.272 ;    ;    ; 5.272 ;
+; nRst       ; RegDst      ; 5.154 ;    ;    ; 5.154 ;
+; nRst       ; RegWrite    ; 5.246 ;    ;    ; 5.246 ;
++------------+-------------+-------+----+----+-------+
+
+
++----------------------------------------------------+
+; Minimum Propagation Delay                          ;
++------------+-------------+-------+----+----+-------+
+; Input Port ; Output Port ; RR    ; RF ; FR ; FF    ;
++------------+-------------+-------+----+----+-------+
+; nRst       ; ALUOp[0]    ; 5.468 ;    ;    ; 5.468 ;
+; nRst       ; ALUOp[1]    ; 5.135 ;    ;    ; 5.135 ;
+; nRst       ; ALUSrcA     ; 5.242 ;    ;    ; 5.242 ;
+; nRst       ; ALUSrcB[0]  ; 5.276 ;    ;    ; 5.276 ;
+; nRst       ; ALUSrcB[1]  ; 5.473 ;    ;    ; 5.473 ;
+; nRst       ; Branch      ; 5.468 ;    ;    ; 5.468 ;
+; nRst       ; IRWrite     ; 5.262 ;    ;    ; 5.262 ;
+; nRst       ; IorD        ; 5.144 ;    ;    ; 5.144 ;
+; nRst       ; MemRead     ; 5.278 ;    ;    ; 5.278 ;
+; nRst       ; MemWrite    ; 5.145 ;    ;    ; 5.145 ;
+; nRst       ; MemtoReg    ; 5.240 ;    ;    ; 5.240 ;
+; nRst       ; PCSrc[0]    ; 5.478 ;    ;    ; 5.478 ;
+; nRst       ; PCSrc[1]    ; 5.265 ;    ;    ; 5.265 ;
+; nRst       ; PcWrite     ; 5.272 ;    ;    ; 5.272 ;
+; nRst       ; RegDst      ; 5.154 ;    ;    ; 5.154 ;
+; nRst       ; RegWrite    ; 5.246 ;    ;    ; 5.246 ;
++------------+-------------+-------+----+----+-------+
+
+
++------------------------------------------------------------------------------+
+; Multicorner Timing Analysis Summary                                          ;
++------------------+--------+-------+----------+---------+---------------------+
+; Clock            ; Setup  ; Hold  ; Recovery ; Removal ; Minimum Pulse Width ;
++------------------+--------+-------+----------+---------+---------------------+
+; Worst-case Slack ; -0.864 ; 0.273 ; N/A      ; N/A     ; -1.631              ;
+;  Clk             ; -0.864 ; 0.273 ; N/A      ; N/A     ; -1.631              ;
+; Design-wide TNS  ; -3.142 ; 0.0   ; 0.0      ; 0.0     ; -15.073             ;
+;  Clk             ; -3.142 ; 0.000 ; N/A      ; N/A     ; -15.073             ;
++------------------+--------+-------+----------+---------+---------------------+
+
+
++-----------------------------------------------------------------------------+
+; Setup Times                                                                 ;
++-----------------+------------+-------+-------+------------+-----------------+
+; Data Port       ; Clock Port ; Rise  ; Fall  ; Clock Edge ; Clock Reference ;
++-----------------+------------+-------+-------+------------+-----------------+
+; instruction[*]  ; Clk        ; 5.123 ; 5.123 ; Rise       ; Clk             ;
+;  instruction[0] ; Clk        ; 4.774 ; 4.774 ; Rise       ; Clk             ;
+;  instruction[1] ; Clk        ; 4.927 ; 4.927 ; Rise       ; Clk             ;
+;  instruction[2] ; Clk        ; 4.715 ; 4.715 ; Rise       ; Clk             ;
+;  instruction[3] ; Clk        ; 5.123 ; 5.123 ; Rise       ; Clk             ;
+;  instruction[4] ; Clk        ; 4.918 ; 4.918 ; Rise       ; Clk             ;
+;  instruction[5] ; Clk        ; 3.868 ; 3.868 ; Rise       ; Clk             ;
++-----------------+------------+-------+-------+------------+-----------------+
+
+
++-------------------------------------------------------------------------------+
+; Hold Times                                                                    ;
++-----------------+------------+--------+--------+------------+-----------------+
+; Data Port       ; Clock Port ; Rise   ; Fall   ; Clock Edge ; Clock Reference ;
++-----------------+------------+--------+--------+------------+-----------------+
+; instruction[*]  ; Clk        ; -1.559 ; -1.559 ; Rise       ; Clk             ;
+;  instruction[0] ; Clk        ; -1.837 ; -1.837 ; Rise       ; Clk             ;
+;  instruction[1] ; Clk        ; -1.792 ; -1.792 ; Rise       ; Clk             ;
+;  instruction[2] ; Clk        ; -1.559 ; -1.559 ; Rise       ; Clk             ;
+;  instruction[3] ; Clk        ; -1.644 ; -1.644 ; Rise       ; Clk             ;
+;  instruction[4] ; Clk        ; -1.828 ; -1.828 ; Rise       ; Clk             ;
+;  instruction[5] ; Clk        ; -1.568 ; -1.568 ; Rise       ; Clk             ;
++-----------------+------------+--------+--------+------------+-----------------+
+
+
++-------------------------------------------------------------------------+
+; Clock to Output Times                                                   ;
++-------------+------------+-------+-------+------------+-----------------+
+; Data Port   ; Clock Port ; Rise  ; Fall  ; Clock Edge ; Clock Reference ;
++-------------+------------+-------+-------+------------+-----------------+
+; ALUOp[*]    ; Clk        ; 7.940 ; 7.940 ; Rise       ; Clk             ;
+;  ALUOp[0]   ; Clk        ; 7.937 ; 7.937 ; Rise       ; Clk             ;
+;  ALUOp[1]   ; Clk        ; 7.940 ; 7.940 ; Rise       ; Clk             ;
+; ALUSrcA     ; Clk        ; 9.460 ; 9.460 ; Rise       ; Clk             ;
+; ALUSrcB[*]  ; Clk        ; 8.538 ; 8.538 ; Rise       ; Clk             ;
+;  ALUSrcB[0] ; Clk        ; 8.001 ; 8.001 ; Rise       ; Clk             ;
+;  ALUSrcB[1] ; Clk        ; 8.538 ; 8.538 ; Rise       ; Clk             ;
+; Branch      ; Clk        ; 7.937 ; 7.937 ; Rise       ; Clk             ;
+; IRWrite     ; Clk        ; 8.245 ; 8.245 ; Rise       ; Clk             ;
+; IorD        ; Clk        ; 8.455 ; 8.455 ; Rise       ; Clk             ;
+; MemRead     ; Clk        ; 8.324 ; 8.324 ; Rise       ; Clk             ;
+; MemWrite    ; Clk        ; 8.297 ; 8.297 ; Rise       ; Clk             ;
+; MemtoReg    ; Clk        ; 8.808 ; 8.808 ; Rise       ; Clk             ;
+; PCSrc[*]    ; Clk        ; 8.020 ; 8.020 ; Rise       ; Clk             ;
+;  PCSrc[0]   ; Clk        ; 7.947 ; 7.947 ; Rise       ; Clk             ;
+;  PCSrc[1]   ; Clk        ; 8.020 ; 8.020 ; Rise       ; Clk             ;
+; PcWrite     ; Clk        ; 8.255 ; 8.255 ; Rise       ; Clk             ;
+; RegDst      ; Clk        ; 7.935 ; 7.935 ; Rise       ; Clk             ;
+; RegWrite    ; Clk        ; 8.992 ; 8.992 ; Rise       ; Clk             ;
++-------------+------------+-------+-------+------------+-----------------+
+
+
++-------------------------------------------------------------------------+
+; Minimum Clock to Output Times                                           ;
++-------------+------------+-------+-------+------------+-----------------+
+; Data Port   ; Clock Port ; Rise  ; Fall  ; Clock Edge ; Clock Reference ;
++-------------+------------+-------+-------+------------+-----------------+
+; ALUOp[*]    ; Clk        ; 4.147 ; 4.147 ; Rise       ; Clk             ;
+;  ALUOp[0]   ; Clk        ; 4.155 ; 4.155 ; Rise       ; Clk             ;
+;  ALUOp[1]   ; Clk        ; 4.147 ; 4.147 ; Rise       ; Clk             ;
+; ALUSrcA     ; Clk        ; 4.377 ; 4.377 ; Rise       ; Clk             ;
+; ALUSrcB[*]  ; Clk        ; 3.966 ; 3.966 ; Rise       ; Clk             ;
+;  ALUSrcB[0] ; Clk        ; 3.966 ; 3.966 ; Rise       ; Clk             ;
+;  ALUSrcB[1] ; Clk        ; 4.253 ; 4.253 ; Rise       ; Clk             ;
+; Branch      ; Clk        ; 4.155 ; 4.155 ; Rise       ; Clk             ;
+; IRWrite     ; Clk        ; 4.286 ; 4.286 ; Rise       ; Clk             ;
+; IorD        ; Clk        ; 4.042 ; 4.042 ; Rise       ; Clk             ;
+; MemRead     ; Clk        ; 4.244 ; 4.244 ; Rise       ; Clk             ;
+; MemWrite    ; Clk        ; 4.292 ; 4.292 ; Rise       ; Clk             ;
+; MemtoReg    ; Clk        ; 4.471 ; 4.471 ; Rise       ; Clk             ;
+; PCSrc[*]    ; Clk        ; 4.165 ; 4.165 ; Rise       ; Clk             ;
+;  PCSrc[0]   ; Clk        ; 4.165 ; 4.165 ; Rise       ; Clk             ;
+;  PCSrc[1]   ; Clk        ; 4.203 ; 4.203 ; Rise       ; Clk             ;
+; PcWrite     ; Clk        ; 4.296 ; 4.296 ; Rise       ; Clk             ;
+; RegDst      ; Clk        ; 4.145 ; 4.145 ; Rise       ; Clk             ;
+; RegWrite    ; Clk        ; 4.152 ; 4.152 ; Rise       ; Clk             ;
++-------------+------------+-------+-------+------------+-----------------+
+
+
++------------------------------------------------------+
+; Progagation Delay                                    ;
++------------+-------------+--------+----+----+--------+
+; Input Port ; Output Port ; RR     ; RF ; FR ; FF     ;
++------------+-------------+--------+----+----+--------+
+; nRst       ; ALUOp[0]    ; 10.867 ;    ;    ; 10.867 ;
+; nRst       ; ALUOp[1]    ; 9.987  ;    ;    ; 9.987  ;
+; nRst       ; ALUSrcA     ; 10.268 ;    ;    ; 10.268 ;
+; nRst       ; ALUSrcB[0]  ; 10.347 ;    ;    ; 10.347 ;
+; nRst       ; ALUSrcB[1]  ; 10.899 ;    ;    ; 10.899 ;
+; nRst       ; Branch      ; 10.867 ;    ;    ; 10.867 ;
+; nRst       ; IRWrite     ; 10.266 ;    ;    ; 10.266 ;
+; nRst       ; IorD        ; 10.001 ;    ;    ; 10.001 ;
+; nRst       ; MemRead     ; 10.302 ;    ;    ; 10.302 ;
+; nRst       ; MemWrite    ; 9.998  ;    ;    ; 9.998  ;
+; nRst       ; MemtoReg    ; 10.266 ;    ;    ; 10.266 ;
+; nRst       ; PCSrc[0]    ; 10.877 ;    ;    ; 10.877 ;
+; nRst       ; PCSrc[1]    ; 10.290 ;    ;    ; 10.290 ;
+; nRst       ; PcWrite     ; 10.276 ;    ;    ; 10.276 ;
+; nRst       ; RegDst      ; 10.009 ;    ;    ; 10.009 ;
+; nRst       ; RegWrite    ; 10.268 ;    ;    ; 10.268 ;
++------------+-------------+--------+----+----+--------+
+
+
++----------------------------------------------------+
+; Minimum Progagation Delay                          ;
++------------+-------------+-------+----+----+-------+
+; Input Port ; Output Port ; RR    ; RF ; FR ; FF    ;
++------------+-------------+-------+----+----+-------+
+; nRst       ; ALUOp[0]    ; 5.468 ;    ;    ; 5.468 ;
+; nRst       ; ALUOp[1]    ; 5.135 ;    ;    ; 5.135 ;
+; nRst       ; ALUSrcA     ; 5.242 ;    ;    ; 5.242 ;
+; nRst       ; ALUSrcB[0]  ; 5.276 ;    ;    ; 5.276 ;
+; nRst       ; ALUSrcB[1]  ; 5.473 ;    ;    ; 5.473 ;
+; nRst       ; Branch      ; 5.468 ;    ;    ; 5.468 ;
+; nRst       ; IRWrite     ; 5.262 ;    ;    ; 5.262 ;
+; nRst       ; IorD        ; 5.144 ;    ;    ; 5.144 ;
+; nRst       ; MemRead     ; 5.278 ;    ;    ; 5.278 ;
+; nRst       ; MemWrite    ; 5.145 ;    ;    ; 5.145 ;
+; nRst       ; MemtoReg    ; 5.240 ;    ;    ; 5.240 ;
+; nRst       ; PCSrc[0]    ; 5.478 ;    ;    ; 5.478 ;
+; nRst       ; PCSrc[1]    ; 5.265 ;    ;    ; 5.265 ;
+; nRst       ; PcWrite     ; 5.272 ;    ;    ; 5.272 ;
+; nRst       ; RegDst      ; 5.154 ;    ;    ; 5.154 ;
+; nRst       ; RegWrite    ; 5.246 ;    ;    ; 5.246 ;
++------------+-------------+-------+----+----+-------+
+
+
++-------------------------------------------------------------------+
+; Setup Transfers                                                   ;
++------------+----------+----------+----------+----------+----------+
+; From Clock ; To Clock ; RR Paths ; FR Paths ; RF Paths ; FF Paths ;
++------------+----------+----------+----------+----------+----------+
+; Clk        ; Clk      ; 27       ; 0        ; 0        ; 0        ;
++------------+----------+----------+----------+----------+----------+
+Entries labeled "false path" only account for clock-to-clock false paths and not path-based false paths. As a result, actual path counts may be lower than reported.
+
+
++-------------------------------------------------------------------+
+; Hold Transfers                                                    ;
++------------+----------+----------+----------+----------+----------+
+; From Clock ; To Clock ; RR Paths ; FR Paths ; RF Paths ; FF Paths ;
++------------+----------+----------+----------+----------+----------+
+; Clk        ; Clk      ; 27       ; 0        ; 0        ; 0        ;
++------------+----------+----------+----------+----------+----------+
+Entries labeled "false path" only account for clock-to-clock false paths and not path-based false paths. As a result, actual path counts may be lower than reported.
 
 
 ---------------
@@ -414,10 +900,10 @@ No dedicated SERDES Receiver circuitry present in device or used in design
 +---------------------------------+-------+------+
 ; Illegal Clocks                  ; 0     ; 0    ;
 ; Unconstrained Clocks            ; 0     ; 0    ;
-; Unconstrained Input Ports       ; 30    ; 30   ;
-; Unconstrained Input Port Paths  ; 30    ; 30   ;
-; Unconstrained Output Ports      ; 30    ; 30   ;
-; Unconstrained Output Port Paths ; 30    ; 30   ;
+; Unconstrained Input Ports       ; 7     ; 7    ;
+; Unconstrained Input Port Paths  ; 51    ; 51   ;
+; Unconstrained Output Ports      ; 16    ; 16   ;
+; Unconstrained Output Port Paths ; 42    ; 42   ;
 +---------------------------------+-------+------+
 
 
@@ -427,7 +913,7 @@ No dedicated SERDES Receiver circuitry present in device or used in design
 Info: *******************************************************************
 Info: Running Quartus II 64-Bit TimeQuest Timing Analyzer
     Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
-    Info: Processing started: Sat Nov 16 06:52:18 2019
+    Info: Processing started: Tue Nov 19 16:01:52 2019
 Info: Command: quartus_sta SISTEMA -c SISTEMA
 Info: qsta_default_script.tcl version: #1
 Warning (20028): Parallel compilation is not licensed and has been disabled
@@ -435,34 +921,49 @@ Info (21077): Low junction temperature is 0 degrees C
 Info (21077): High junction temperature is 85 degrees C
 Critical Warning (332012): Synopsys Design Constraints File file not found: 'SISTEMA.sdc'. A Synopsys Design Constraints File is required by the TimeQuest Timing Analyzer to get proper timing constraints. Without it, the Compiler will not properly optimize the design.
 Info (332142): No user constrained base clocks found in the design. Calling "derive_clocks -period 1.0"
-Info (332096): The command derive_clocks did not find any clocks to derive.  No clocks were created or changed.
-Warning (332068): No clocks defined in design.
+Info (332105): Deriving Clocks
+    Info (332105): create_clock -period 1.000 -name Clk Clk
 Info: Found TIMEQUEST_REPORT_SCRIPT_INCLUDE_DEFAULT_ANALYSIS = ON
-Info (332159): No clocks to report
 Info: Analyzing Slow Model
-Info (332140): No fmax paths to report
-Info (332140): No Setup paths to report
-Info (332140): No Hold paths to report
+Critical Warning (332148): Timing requirements not met
+Info (332146): Worst-case setup slack is -0.864
+    Info (332119):     Slack End Point TNS Clock 
+    Info (332119): ========= ============= =====================
+    Info (332119):    -0.864        -3.142 Clk 
+Info (332146): Worst-case hold slack is 0.645
+    Info (332119):     Slack End Point TNS Clock 
+    Info (332119): ========= ============= =====================
+    Info (332119):     0.645         0.000 Clk 
 Info (332140): No Recovery paths to report
 Info (332140): No Removal paths to report
-Info (332140): No Minimum Pulse Width paths to report
+Info (332146): Worst-case minimum pulse width slack is -1.631
+    Info (332119):     Slack End Point TNS Clock 
+    Info (332119): ========= ============= =====================
+    Info (332119):    -1.631       -15.073 Clk 
 Info (332001): The selected device family is not supported by the report_metastability command.
 Info: Analyzing Fast Model
-Info (332142): No user constrained base clocks found in the design. Calling "derive_clocks -period 1.0"
-Info (332096): The command derive_clocks did not find any clocks to derive.  No clocks were created or changed.
-Warning (332068): No clocks defined in design.
-Info (332140): No Setup paths to report
-Info (332140): No Hold paths to report
+Info (332146): Worst-case setup slack is 0.230
+    Info (332119):     Slack End Point TNS Clock 
+    Info (332119): ========= ============= =====================
+    Info (332119):     0.230         0.000 Clk 
+Info (332146): Worst-case hold slack is 0.273
+    Info (332119):     Slack End Point TNS Clock 
+    Info (332119): ========= ============= =====================
+    Info (332119):     0.273         0.000 Clk 
 Info (332140): No Recovery paths to report
 Info (332140): No Removal paths to report
-Info (332140): No Minimum Pulse Width paths to report
+Critical Warning (332148): Timing requirements not met
+Info (332146): Worst-case minimum pulse width slack is -1.380
+    Info (332119):     Slack End Point TNS Clock 
+    Info (332119): ========= ============= =====================
+    Info (332119):    -1.380       -12.380 Clk 
 Info (332001): The selected device family is not supported by the report_metastability command.
 Info (332102): Design is not fully constrained for setup requirements
 Info (332102): Design is not fully constrained for hold requirements
 Info: Quartus II 64-Bit TimeQuest Timing Analyzer was successful. 0 errors, 4 warnings
-    Info: Peak virtual memory: 4555 megabytes
-    Info: Processing ended: Sat Nov 16 06:52:20 2019
-    Info: Elapsed time: 00:00:02
+    Info: Peak virtual memory: 4544 megabytes
+    Info: Processing ended: Tue Nov 19 16:01:56 2019
+    Info: Elapsed time: 00:00:04
     Info: Total CPU time (on all processors): 00:00:01
 
 
