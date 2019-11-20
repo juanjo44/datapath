@@ -1,5 +1,9 @@
 Analysis & Synthesis report for SISTEMA
+<<<<<<< HEAD
 Tue Nov 19 19:51:33 2019
+=======
+Sat Nov 16 13:10:26 2019
+>>>>>>> 622574e56f7174b9488f3a36987201c31f742f28
 Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
 
 
@@ -10,7 +14,19 @@ Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edit
   2. Analysis & Synthesis Summary
   3. Analysis & Synthesis Settings
   4. Parallel Compilation
+<<<<<<< HEAD
   5. Analysis & Synthesis Messages
+=======
+  5. Analysis & Synthesis Source Files Read
+  6. Analysis & Synthesis Resource Usage Summary
+  7. Analysis & Synthesis Resource Utilization by Entity
+  8. State Machine - |unidadDeControl|State
+  9. Registers Removed During Synthesis
+ 10. General Register Statistics
+ 11. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 12. Elapsed Time Per Partition
+ 13. Analysis & Synthesis Messages
+>>>>>>> 622574e56f7174b9488f3a36987201c31f742f28
 
 
 
@@ -36,11 +52,16 @@ applicable agreement for further details.
 +--------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                         ;
 +------------------------------------+-------------------------------------------------+
+<<<<<<< HEAD
 ; Analysis & Synthesis Status        ; Failed - Tue Nov 19 19:51:33 2019               ;
+=======
+; Analysis & Synthesis Status        ; Successful - Sat Nov 16 13:10:25 2019           ;
+>>>>>>> 622574e56f7174b9488f3a36987201c31f742f28
 ; Quartus II 64-Bit Version          ; 13.0.1 Build 232 06/12/2013 SP 1 SJ Web Edition ;
 ; Revision Name                      ; SISTEMA                                         ;
 ; Top-level Entity Name              ; unidadDeControl                                 ;
 ; Family                             ; Cyclone II                                      ;
+<<<<<<< HEAD
 ; Total logic elements               ; N/A until Partition Merge                       ;
 ;     Total combinational functions  ; N/A until Partition Merge                       ;
 ;     Dedicated logic registers      ; N/A until Partition Merge                       ;
@@ -50,6 +71,17 @@ applicable agreement for further details.
 ; Total memory bits                  ; N/A until Partition Merge                       ;
 ; Embedded Multiplier 9-bit elements ; N/A until Partition Merge                       ;
 ; Total PLLs                         ; N/A until Partition Merge                       ;
+=======
+; Total logic elements               ; 33                                              ;
+;     Total combinational functions  ; 28                                              ;
+;     Dedicated logic registers      ; 27                                              ;
+; Total registers                    ; 27                                              ;
+; Total pins                         ; 24                                              ;
+; Total virtual pins                 ; 0                                               ;
+; Total memory bits                  ; 0                                               ;
+; Embedded Multiplier 9-bit elements ; 0                                               ;
+; Total PLLs                         ; 0                                               ;
+>>>>>>> 622574e56f7174b9488f3a36987201c31f742f28
 +------------------------------------+-------------------------------------------------+
 
 
@@ -144,18 +176,140 @@ Parallel compilation was disabled, but you have multiple processors available. E
 +----------------------------+--------+
 ; Processors                 ; Number ;
 +----------------------------+--------+
-; Number detected on machine ; 4      ;
+; Number detected on machine ; 8      ;
 ; Maximum allowed            ; 1      ;
 +----------------------------+--------+
 
 
+<<<<<<< HEAD
+=======
++--------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                           ;
++----------------------------------+-----------------+-----------------+-----------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type       ; File Name with Absolute Path                                    ; Library ;
++----------------------------------+-----------------+-----------------+-----------------------------------------------------------------+---------+
+; unidadDeControl.vhd              ; yes             ; User VHDL File  ; C:/Users/juanjo44/Desktop/datapath/sistema2/unidadDeControl.vhd ;         ;
++----------------------------------+-----------------+-----------------+-----------------------------------------------------------------+---------+
+
+
++-----------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary         ;
++---------------------------------------------+-------+
+; Resource                                    ; Usage ;
++---------------------------------------------+-------+
+; Estimated Total logic elements              ; 33    ;
+;                                             ;       ;
+; Total combinational functions               ; 28    ;
+; Logic element usage by number of LUT inputs ;       ;
+;     -- 4 input functions                    ; 13    ;
+;     -- 3 input functions                    ; 2     ;
+;     -- <=2 input functions                  ; 13    ;
+;                                             ;       ;
+; Logic elements by mode                      ;       ;
+;     -- normal mode                          ; 28    ;
+;     -- arithmetic mode                      ; 0     ;
+;                                             ;       ;
+; Total registers                             ; 27    ;
+;     -- Dedicated logic registers            ; 27    ;
+;     -- I/O registers                        ; 0     ;
+;                                             ;       ;
+; I/O pins                                    ; 24    ;
+; Embedded Multiplier 9-bit elements          ; 0     ;
+; Maximum fan-out node                        ; Clk   ;
+; Maximum fan-out                             ; 27    ;
+; Total fan-out                               ; 160   ;
+; Average fan-out                             ; 2.03  ;
++---------------------------------------------+-------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                         ;
++----------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+---------------------+--------------+
+; Compilation Hierarchy Node ; LC Combinationals ; LC Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name ; Library Name ;
++----------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+---------------------+--------------+
+; |unidadDeControl           ; 28 (28)           ; 27 (27)      ; 0           ; 0            ; 0       ; 0         ; 24   ; 0            ; |unidadDeControl    ; work         ;
++----------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+---------------------+--------------+
+Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
+Encoding Type:  One-Hot
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |unidadDeControl|State                                                                                                                                                                                                       ;
++----------------------+--------------------+--------------------+---------------------+--------------------+------------+-------------------+----------------------+-------------+---------------+---------------+--------------+-------------+
+; Name                 ; State.MemWriteback ; State.AluWriteback ; State.MemWriteState ; State.MemReadState ; State.Jump ; State.BranchState ; State.TipoIWriteBack ; State.TipoI ; State.Execute ; State.MemAddr ; State.Decode ; State.Fetch ;
++----------------------+--------------------+--------------------+---------------------+--------------------+------------+-------------------+----------------------+-------------+---------------+---------------+--------------+-------------+
+; State.Fetch          ; 0                  ; 0                  ; 0                   ; 0                  ; 0          ; 0                 ; 0                    ; 0           ; 0             ; 0             ; 0            ; 0           ;
+; State.Decode         ; 0                  ; 0                  ; 0                   ; 0                  ; 0          ; 0                 ; 0                    ; 0           ; 0             ; 0             ; 1            ; 1           ;
+; State.MemAddr        ; 0                  ; 0                  ; 0                   ; 0                  ; 0          ; 0                 ; 0                    ; 0           ; 0             ; 1             ; 0            ; 1           ;
+; State.Execute        ; 0                  ; 0                  ; 0                   ; 0                  ; 0          ; 0                 ; 0                    ; 0           ; 1             ; 0             ; 0            ; 1           ;
+; State.TipoI          ; 0                  ; 0                  ; 0                   ; 0                  ; 0          ; 0                 ; 0                    ; 1           ; 0             ; 0             ; 0            ; 1           ;
+; State.TipoIWriteBack ; 0                  ; 0                  ; 0                   ; 0                  ; 0          ; 0                 ; 1                    ; 0           ; 0             ; 0             ; 0            ; 1           ;
+; State.BranchState    ; 0                  ; 0                  ; 0                   ; 0                  ; 0          ; 1                 ; 0                    ; 0           ; 0             ; 0             ; 0            ; 1           ;
+; State.Jump           ; 0                  ; 0                  ; 0                   ; 0                  ; 1          ; 0                 ; 0                    ; 0           ; 0             ; 0             ; 0            ; 1           ;
+; State.MemReadState   ; 0                  ; 0                  ; 0                   ; 1                  ; 0          ; 0                 ; 0                    ; 0           ; 0             ; 0             ; 0            ; 1           ;
+; State.MemWriteState  ; 0                  ; 0                  ; 1                   ; 0                  ; 0          ; 0                 ; 0                    ; 0           ; 0             ; 0             ; 0            ; 1           ;
+; State.AluWriteback   ; 0                  ; 1                  ; 0                   ; 0                  ; 0          ; 0                 ; 0                    ; 0           ; 0             ; 0             ; 0            ; 1           ;
+; State.MemWriteback   ; 1                  ; 0                  ; 0                   ; 0                  ; 0          ; 0                 ; 0                    ; 0           ; 0             ; 0             ; 0            ; 1           ;
++----------------------+--------------------+--------------------+---------------------+--------------------+------------+-------------------+----------------------+-------------+---------------+---------------+--------------+-------------+
+
+
++------------------------------------------------------------+
+; Registers Removed During Synthesis                         ;
++---------------------------------------+--------------------+
+; Register name                         ; Reason for Removal ;
++---------------------------------------+--------------------+
+; State.Jump                            ; Lost fanout        ;
+; Total Number of Removed Registers = 1 ;                    ;
++---------------------------------------+--------------------+
+
+
++------------------------------------------------------+
+; General Register Statistics                          ;
++----------------------------------------------+-------+
+; Statistic                                    ; Value ;
++----------------------------------------------+-------+
+; Total registers                              ; 27    ;
+; Number of registers using Synchronous Clear  ; 6     ;
+; Number of registers using Synchronous Load   ; 0     ;
+; Number of registers using Asynchronous Clear ; 0     ;
+; Number of registers using Asynchronous Load  ; 0     ;
+; Number of registers using Clock Enable       ; 0     ;
+; Number of registers using Preset             ; 0     ;
++----------------------------------------------+-------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                           ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------+
+; 5:1                ; 2 bits    ; 6 LEs         ; 2 LEs                ; 4 LEs                  ; No         ; |unidadDeControl|State     ;
+; 6:1                ; 2 bits    ; 8 LEs         ; 2 LEs                ; 6 LEs                  ; No         ; |unidadDeControl|State     ;
+; 10:1               ; 2 bits    ; 12 LEs        ; 12 LEs               ; 0 LEs                  ; No         ; |unidadDeControl|State     ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------+
+
+
++-------------------------------+
+; Elapsed Time Per Partition    ;
++----------------+--------------+
+; Partition Name ; Elapsed Time ;
++----------------+--------------+
+; Top            ; 00:00:00     ;
++----------------+--------------+
+
+
+>>>>>>> 622574e56f7174b9488f3a36987201c31f742f28
 +-------------------------------+
 ; Analysis & Synthesis Messages ;
 +-------------------------------+
 Info: *******************************************************************
 Info: Running Quartus II 64-Bit Analysis & Synthesis
     Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
+<<<<<<< HEAD
     Info: Processing started: Tue Nov 19 19:51:31 2019
+=======
+    Info: Processing started: Sat Nov 16 13:10:24 2019
+>>>>>>> 622574e56f7174b9488f3a36987201c31f742f28
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off SISTEMA -c SISTEMA
 Warning (20028): Parallel compilation is not licensed and has been disabled
 Info (12021): Found 2 design units, including 1 entities, in source file unidaddecontrol.vhd
@@ -203,9 +357,11 @@ Info (12021): Found 2 design units, including 1 entities, in source file pc.vhd
 Info (12021): Found 2 design units, including 1 entities, in source file principalmemory.vhd
     Info (12022): Found design unit 1: principalMemory-arch
     Info (12023): Found entity 1: principalMemory
-Info (12021): Found 1 design units, including 1 entities, in source file sistemacomputo.vhd
+Info (12021): Found 2 design units, including 1 entities, in source file sistemacomputo.vhd
+    Info (12022): Found design unit 1: sistemaComputo-arch
     Info (12023): Found entity 1: sistemaComputo
 Info (12127): Elaborating entity "unidadDeControl" for the top level hierarchy
+<<<<<<< HEAD
 Warning (10492): VHDL Process Statement warning at unidadDeControl.vhd(35): signal "nRst" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
 Error (10028): Can't resolve multiple constant drivers for net "Branch" at unidadDeControl.vhd(119) File: C:/Users/nsdr1/Desktop/datapath/sistema2/unidadDeControl.vhd Line: 119
 Error (10029): Constant driver at unidadDeControl.vhd(33) File: C:/Users/nsdr1/Desktop/datapath/sistema2/unidadDeControl.vhd Line: 33
@@ -230,5 +386,19 @@ Error: Quartus II 64-Bit Analysis & Synthesis was unsuccessful. 18 errors, 2 war
     Error: Processing ended: Tue Nov 19 19:51:33 2019
     Error: Elapsed time: 00:00:02
     Error: Total CPU time (on all processors): 00:00:02
+=======
+Info (17049): 1 registers lost all their fanouts during netlist optimizations.
+Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
+    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
+Info (21057): Implemented 63 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 8 input pins
+    Info (21059): Implemented 16 output pins
+    Info (21061): Implemented 39 logic cells
+Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 1 warning
+    Info: Peak virtual memory: 4646 megabytes
+    Info: Processing ended: Sat Nov 16 13:10:26 2019
+    Info: Elapsed time: 00:00:02
+    Info: Total CPU time (on all processors): 00:00:01
+>>>>>>> 622574e56f7174b9488f3a36987201c31f742f28
 
 

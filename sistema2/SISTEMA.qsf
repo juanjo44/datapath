@@ -65,6 +65,16 @@ set_global_assignment -name VHDL_FILE cajitaAnds.vhd
 set_global_assignment -name VHDL_FILE pc.vhd
 set_global_assignment -name VHDL_FILE principalMemory.vhd
 set_global_assignment -name VHDL_FILE sistemaComputo.vhd
+set_global_assignment -name STRATIX_DEVICE_IO_STANDARD "3.3-V LVTTL"
+set_location_assignment PIN_Y22 -to pruebaSalida[0]
+set_location_assignment PIN_W21 -to pruebaSalida[1]
+set_location_assignment PIN_W22 -to pruebaSalida[2]
+set_location_assignment PIN_V21 -to pruebaSalida[3]
+set_location_assignment PIN_V22 -to pruebaSalida[4]
+set_location_assignment PIN_U21 -to pruebaSalida[5]
+set_location_assignment PIN_U22 -to pruebaSalida[6]
+set_location_assignment PIN_R22 -to clockS
+set_location_assignment PIN_T21 -to clearS
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top

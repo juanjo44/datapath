@@ -3,6 +3,10 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity unidadDeControl is
+<<<<<<< HEAD
+=======
+--generic(ClockFrecuencyHz : integer);
+>>>>>>> 622574e56f7174b9488f3a36987201c31f742f28
 port(
 	instruction	: in std_logic_vector (5 downto 0);
 	Clk			: in  std_logic;
@@ -53,7 +57,12 @@ begin
 				--elsif instruction = "..." then
 				--state <= Jump;
             --addi
+<<<<<<< HEAD
             else
+=======
+            --elsif instruction = "001000" then
+				else
+>>>>>>> 622574e56f7174b9488f3a36987201c31f742f28
             state <= TipoI;
             end if;
 			elsif state = memAddr then
@@ -75,7 +84,11 @@ begin
             state <= Fetch;
 			elsif state = execute then
             state <= AluWriteback;
+<<<<<<< HEAD
 			else 
+=======
+			else-- state = AluWriteback then
+>>>>>>> 622574e56f7174b9488f3a36987201c31f742f28
             state <= Fetch;
 			--elsif state = "1000" then
             --currentState <="0000";
@@ -309,6 +322,7 @@ begin
 						ALUSrcB <= "00";
 						ALUSrcA <= '0';
 						RegWrite <= '1';
+<<<<<<< HEAD
 						-- las demas señales se ponen en 0's
 						Branch	<= '0';
 						PcWrite	<= '0';
@@ -323,6 +337,8 @@ begin
 						--ALUSrcA	<= '0';
 						--RegWrite <= '0';
 						regDst	<= '0';
+=======
+>>>>>>> 622574e56f7174b9488f3a36987201c31f742f28
 					when others =>
 						state		<= Fetch;
 						Branch	<= '0';

@@ -23,7 +23,37 @@ instruction[5] => Equal0.IN3
 instruction[5] => Equal1.IN2
 instruction[5] => Equal2.IN0
 instruction[5] => Equal3.IN0
+<<<<<<< HEAD
 Clk => State~10.DATAIN
+=======
+Clk => RegDst~reg0.CLK
+Clk => RegWrite~reg0.CLK
+Clk => ALUSrcA~reg0.CLK
+Clk => ALUSrcB[0]~reg0.CLK
+Clk => ALUSrcB[1]~reg0.CLK
+Clk => ALUOp[0]~reg0.CLK
+Clk => ALUOp[1]~reg0.CLK
+Clk => PCSrc[0]~reg0.CLK
+Clk => PCSrc[1]~reg0.CLK
+Clk => IRWrite~reg0.CLK
+Clk => MemtoReg~reg0.CLK
+Clk => MemWrite~reg0.CLK
+Clk => MemRead~reg0.CLK
+Clk => IorD~reg0.CLK
+Clk => PcWrite~reg0.CLK
+Clk => Branch~reg0.CLK
+Clk => State~10.DATAIN
+nRst => State.OUTPUTSELECT
+nRst => State.OUTPUTSELECT
+nRst => State.OUTPUTSELECT
+nRst => State.OUTPUTSELECT
+nRst => State.OUTPUTSELECT
+nRst => State.OUTPUTSELECT
+nRst => State.OUTPUTSELECT
+nRst => State.OUTPUTSELECT
+nRst => State.OUTPUTSELECT
+nRst => State.OUTPUTSELECT
+>>>>>>> 622574e56f7174b9488f3a36987201c31f742f28
 nRst => Branch.OUTPUTSELECT
 nRst => PcWrite.OUTPUTSELECT
 nRst => IorD.OUTPUTSELECT
@@ -32,14 +62,18 @@ nRst => MemWrite.OUTPUTSELECT
 nRst => MemtoReg.OUTPUTSELECT
 nRst => IRWrite.OUTPUTSELECT
 nRst => PCSrc.OUTPUTSELECT
+<<<<<<< HEAD
 nRst => PCSrc.OUTPUTSELECT
 nRst => ALUOp.OUTPUTSELECT
+=======
+>>>>>>> 622574e56f7174b9488f3a36987201c31f742f28
 nRst => ALUOp.OUTPUTSELECT
 nRst => ALUSrcB.OUTPUTSELECT
 nRst => ALUSrcB.OUTPUTSELECT
 nRst => ALUSrcA.OUTPUTSELECT
 nRst => RegWrite.OUTPUTSELECT
 nRst => RegDst.OUTPUTSELECT
+<<<<<<< HEAD
 Branch <= Branch.DB_MAX_OUTPUT_PORT_TYPE
 PcWrite <= PcWrite.DB_MAX_OUTPUT_PORT_TYPE
 IorD <= IorD.DB_MAX_OUTPUT_PORT_TYPE
@@ -56,5 +90,23 @@ ALUSrcB[1] <= ALUSrcB.DB_MAX_OUTPUT_PORT_TYPE
 ALUSrcA <= ALUSrcA.DB_MAX_OUTPUT_PORT_TYPE
 RegWrite <= RegWrite.DB_MAX_OUTPUT_PORT_TYPE
 RegDst <= RegDst.DB_MAX_OUTPUT_PORT_TYPE
+=======
+Branch <= Branch~reg0.DB_MAX_OUTPUT_PORT_TYPE
+PcWrite <= PcWrite~reg0.DB_MAX_OUTPUT_PORT_TYPE
+IorD <= IorD~reg0.DB_MAX_OUTPUT_PORT_TYPE
+MemRead <= MemRead~reg0.DB_MAX_OUTPUT_PORT_TYPE
+MemWrite <= MemWrite~reg0.DB_MAX_OUTPUT_PORT_TYPE
+MemtoReg <= MemtoReg~reg0.DB_MAX_OUTPUT_PORT_TYPE
+IRWrite <= IRWrite~reg0.DB_MAX_OUTPUT_PORT_TYPE
+PCSrc[0] <= PCSrc[0]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+PCSrc[1] <= PCSrc[1]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+ALUOp[0] <= ALUOp[0]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+ALUOp[1] <= ALUOp[1]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+ALUSrcB[0] <= ALUSrcB[0]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+ALUSrcB[1] <= ALUSrcB[1]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+ALUSrcA <= ALUSrcA~reg0.DB_MAX_OUTPUT_PORT_TYPE
+RegWrite <= RegWrite~reg0.DB_MAX_OUTPUT_PORT_TYPE
+RegDst <= RegDst~reg0.DB_MAX_OUTPUT_PORT_TYPE
+>>>>>>> 622574e56f7174b9488f3a36987201c31f742f28
 
 
